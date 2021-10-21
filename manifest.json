@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "Okta Remote",
+    "version": "1.0.0",
+    "description": "Okta Remote for Your Tenant",
+    "browser_action": {
+        "default_popup": "index.html",
+        "default_icon": "Okta_Remote.png"
+    },
+    "icons": {
+        "16": "Okta_Remote.png",
+        "32": "Okta_Remote.png",
+        "128": "Okta_Remote.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "activeTab", "<all_urls>",
+        "storage"
+    ]
+}
+
