@@ -5,19 +5,18 @@
     "description": "Okta Remote for Your Tenant",
     "browser_action": {
         "default_popup": "index.html",
-        "default_icon": "Okta_Remote.png"
+        "default_icon": "Okta_Remote1.png"
     },
     "icons": {
-        "16": "Okta_Remote.png",
-        "32": "Okta_Remote.png",
-        "128": "Okta_Remote.png"
+        "16": "Okta_Remote1.png",
+        "32": "Okta_Remote1.png",
+        "128": "Okta_Remote1.png"
     },
     "background": {
         "service_worker": "background.js"
     },
     "permissions": [
-        "activeTab", "<all_urls>",
-        "storage"
+        "storage",
+        "<all_urls>"
     ]
 }
-
