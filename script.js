@@ -67,7 +67,7 @@ async function checkVerification() {
             resolve(themeId);
         })
     });
-    const tenant = await getTenant;
+    const tenant = await getTenant; 
     const token = await getToken;
     const brandId = await getBrandId;
     const themeId = await getThemeId;
@@ -161,6 +161,7 @@ tablinks1.addEventListener("click", async function() {
         tabcontent2.style.display = "none";
         tabcontent3.style.display = "none";
         tabcontent4.style.display = "none";
+        tabcontent5.style.display = "none";
     
         tablinks1.className = tablinks1.className.replace(" active", "");
         tablinks2.className = tablinks2.className.replace(" active", "");
@@ -171,7 +172,9 @@ tablinks1.addEventListener("click", async function() {
         tablinks1.style.backgroundColor = "white";
         tablinks2.style.backgroundColor = "#ECECEC";
         tablinks3.style.backgroundColor = "#ECECEC";
-        tablinks4.style.backgroundColor = "#ECECEC";        
+        tablinks4.style.backgroundColor = "#ECECEC";  
+        tablinks5.style.backgroundColor = "#ECECEC";        
+
         
         tablinks1.style.color = "black";
         tablinks2.style.color = "#193465";
@@ -186,6 +189,8 @@ tablinks2.addEventListener("click", async function() {
         tabcontent2.style.display = "none";
         tabcontent3.style.display = "none";
         tabcontent4.style.display = "none";
+        tabcontent5.style.display = "none";
+
 
         tablinks1.className = tablinks1.className.replace(" active", "");
         tablinks2.className = tablinks2.className.replace(" active", "");
@@ -198,12 +203,13 @@ tablinks2.addEventListener("click", async function() {
         tablinks2.style.backgroundColor = "white";
         tablinks3.style.backgroundColor = "#ECECEC";
         tablinks4.style.backgroundColor = "#ECECEC";
-        
-        
+        tablinks5.style.backgroundColor = "#ECECEC";        
+    
         tablinks1.style.color = "#193465";
         tablinks2.style.color = "black";
         tablinks3.style.color = "#193465";
         tablinks4.style.color = "#193465";
+        tablinks5.style.color = "#193465";
     }
 })
 tablinks3.addEventListener("click", async function() {
@@ -212,6 +218,8 @@ tablinks3.addEventListener("click", async function() {
     tabcontent2.style.display = "none";
     tabcontent3.style.display = "none";
     tabcontent4.style.display = "none";
+    tabcontent5.style.display = "none";
+
 
     tablinks1.className = tablinks1.className.replace(" active", "");
     tablinks2.className = tablinks2.className.replace(" active", "");
@@ -225,17 +233,21 @@ tablinks3.addEventListener("click", async function() {
     tablinks2.style.backgroundColor = "#ECECEC";
     tablinks3.style.backgroundColor = "white";
     tablinks4.style.backgroundColor = "#ECECEC";
+    tablinks5.style.backgroundColor = "#ECECEC";        
     
     tablinks1.style.color = "#193465";
     tablinks2.style.color = "#193465";
     tablinks3.style.color = "black";
     tablinks4.style.color = "#193465";
+    tablinks5.style.color = "#193465";
+
 })
 tablinks4.addEventListener("click", async function() {
     tabcontent1.style.display = "none";
     tabcontent2.style.display = "none";
     tabcontent3.style.display = "none";
     tabcontent4.style.display = "none";
+    tabcontent5.style.display = "none";
 
     tablinks1.className = tablinks1.className.replace(" active", "");
     tablinks2.className = tablinks2.className.replace(" active", "");
@@ -249,11 +261,44 @@ tablinks4.addEventListener("click", async function() {
     tablinks2.style.backgroundColor = "#ECECEC";
     tablinks3.style.backgroundColor = "#ECECEC";
     tablinks4.style.backgroundColor = "white";
+    tablinks5.style.backgroundColor = "#ECECEC";
+
     
     tablinks1.style.color = "#193465";
     tablinks2.style.color = "#193465";
     tablinks3.style.color = "#193465";
     tablinks4.style.color = "black";
+    tablinks5.style.color = "#193465";
+
+})
+tablinks5.addEventListener("click", async function() {
+    tabcontent1.style.display = "none";
+    tabcontent2.style.display = "none";
+    tabcontent3.style.display = "none";
+    tabcontent4.style.display = "none";
+    tabcontent5.style.display = "none";
+
+    tablinks1.className = tablinks1.className.replace(" active", "");
+    tablinks2.className = tablinks2.className.replace(" active", "");
+    tablinks3.className = tablinks3.className.replace(" active", "");
+    tablinks4.className = tablinks4.className.replace(" active", "");
+    tablinks5.className = tablinks5.className.replace(" active", "");
+    
+    tabcontent5.style.display = "block";
+    
+    
+    tablinks1.style.backgroundColor = "#ECECEC";
+    tablinks2.style.backgroundColor = "#ECECEC";
+    tablinks3.style.backgroundColor = "#ECECEC";
+    tablinks4.style.backgroundColor = "#ECECEC";
+    tablinks5.style.backgroundColor = "white";
+    
+    tablinks1.style.color = "#193465";
+    tablinks2.style.color = "#193465";
+    tablinks3.style.color = "#193465";
+    tablinks4.style.color = "#193465";
+    tablinks5.style.color = "black";
+
 })
 upload.addEventListener("click", async function() {
     let myHeaders = new Headers();
@@ -826,7 +871,30 @@ image12.addEventListener("click", async function() {
     uploadImages(config);
 })
 
-
+finance.addEventListener("click", function() {
+    financeDisplay.style.display = "block";
+    travelDisplay.style.display = "none";
+    healthcareDisplay.style.display = "none";
+    supportDisplay.style.display = "none";
+})
+travel.addEventListener("click", function() {
+    financeDisplay.style.display = "none";
+    travelDisplay.style.display = "block";
+    healthcareDisplay.style.display = "none";
+    supportDisplay.style.display = "none";
+})
+healthcare.addEventListener("click", function() {
+    financeDisplay.style.display = "none";
+    travelDisplay.style.display = "none";
+    healthcareDisplay.style.display = "block";
+    supportDisplay.style.display = "none";
+})
+support.addEventListener("click", function() {
+    financeDisplay.style.display = "none";
+    travelDisplay.style.display = "none";
+    healthcareDisplay.style.display = "none";
+    supportDisplay.style.display = "block";
+})
 
 oinSearch.addEventListener("keyup", async function(e) {
    
