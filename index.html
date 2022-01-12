@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word of the Day </title>
     <link rel="stylesheet" href="index.css">
+    <link href="http://fonts.cdnfonts.com/css/basier" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
@@ -27,7 +28,7 @@
               </div>
               <div class="themeImages">
                   <div class="image" id="image1Box"> 
-                    <img class="imageSelect" id="image1" src="https://previews.123rf.com/images/exploderasi/exploderasi1911/exploderasi191100184/133218490-finance-background-with-abstract-growth-graph-chart-3d-illustration.jpg" alt="Girl in a jacket" width="145" height="145">
+                    <img class="imageSelect" id="image1" src="https://freerangestock.com/sample/119043/simple-finance-background-.jpg" alt="Girl in a jacket" width="145" height="145">
                     <div id="verificationLoader"></div>
                 </div> 
                 <div class="image" id="image2Box">
@@ -88,7 +89,7 @@
                       <div id="verificationLoader10"></div>
                     </div> 
                   <div class="image" id="image11Box"> 
-                      <img class="imageSelect" id="image11" src="https://st4.depositphotos.com/1001069/23127/i/1600/depositphotos_231275912-stock-photo-helpdesk-headset-isolated-white-background.jpg" alt="Girl in a jacket" width="145" height="145">
+                      <img class="imageSelect" id="image11" src="https://wallpaperaccess.com/full/2228821.jpg" alt="Girl in a jacket" width="145" height="145">
                       <div id="verificationLoader11"></div>
                     </div> 
                   <div class="image" id="image12Box"> 
@@ -103,29 +104,187 @@
         
         <div id="tabcontent2">
             <div id='tabContainer2'>
-                <div id="inputForm">
-                    <div id="inputFormForm">
-                        <div id="verify-inputs-domain"> 
-                            <!-- <label for="field3">Tenant Domain </label> -->
-                            <div id="backgroundUrl"><h4> Logo url </h4></div>
-                            <input type="text" name="logo"  id="logoInput" placeholder="Logo URL" />
-                        </div>
-                        <div id="verify-inputs-token"> 
-                            <!-- <label for="field3">Tenant Token </label> -->
-                            <div id="logoUrl"><h4> Bg URL </h4></div>
-                            <input type="text" name="background" id="backgroundInput" placeholder="Background URL" />
-                        </div>
-                        <div id="submit-form">
-                            <button type="verify-submit" id="upload"> Upload </button>
+                <div id="backgroundContainer">
+                    <div id="search">
+                        <div id="iconDiv"><i class="fa fa-search"></i></div>
+                        <div id="inputDiv">
+                            <input id="backgroundInputSearch" type="text" placeholder="Search for an background image..." />
                         </div>
                     </div>
-                </div>
-                <div id="uploadLoadContainer"> 
+                    <!-- <input id="backgroundInput" type="text" placeholder="Search for an app..." />  -->
 
+                    <div id="backgroundResults"> 
+                        <div class='wrap'>
+                            <ul class='carousel is-set'>
+                              <li class='carousel-seat'>
+                                <div class="resultsImage" id="results1"> 
+                                  <img id="imageResult1" src="https://wallpaper.dog/large/20427976.jpg" /> 
+                                  <div id="verificationLoader13"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat'>
+                                <div class="resultsImage" id="results2">
+                                 <img id="imageResult2" src="https://i.pinimg.com/originals/28/10/99/28109943f32b9f62398f36ad63700593.jpg" />
+                                 <div id="verificationLoader14"></div>
+                                </div>
+                              </li>
+                              
+                              <li class='carousel-seat'>
+                                <div class="resultsImage" id="results3"> 
+                                  <img id="imageResult3" src="https://assets.system76.com/downloads/wallpapers/System76-Fractal_Mountains-by_Kate_Hazen_of_System76.png" /> 
+                                  <div id="verificationLoader15"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat'>
+                                <div class="resultsImage" id="results4"> 
+                                  <img id="imageResult4" src="https://images.wallpapersden.com/image/download/multicolor-abstract-background_am1rZmuUmZqaraWkpJRmbmdlrWZlbWU.jpg" />
+                                  <div id="verificationLoader16"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat'>
+                                <div class="resultsImage" id="results5">
+                                  <img id="imageResult5" src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg" /> 
+                                  <div id="verificationLoader17"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat is-ref'>
+                                <div class="resultsImage" id="results6"> 
+                                  <img id="imageResult6" src="https://i.pinimg.com/originals/6a/90/60/6a9060251092204ba3701e7fe582ee6a.png" /> 
+                                  <div id="verificationLoader18"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat is-ref'>
+                                <div class="resultsImage" id="results7"> 
+                                  <img id="imageResult7" src="https://sf-applications.s3.amazonaws.com/Bear/wallpapers/17/summer-2021-wallpaper_mac-book-pro-16-3072x1920.png" />
+                                  <div id="verificationLoader19"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat is-ref'>
+                                <div class="resultsImage" id="results8"> 
+                                  <img id="imageResult8" src="https://www.wallpapertip.com/wmimgs/99-993442_blue-yellow-abstract-background-christian-images-abstract-background.jpg" /> 
+                                  <div id="verificationLoader20"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat is-ref'>
+                                <div class="resultsImage" id="results9"> 
+                                  <img id="imageResult9" src="https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=" /> 
+                                  <div id="verificationLoader21"></div>
+                                </div>
+                              </li>
+                              <li class='carousel-seat is-ref'>
+                                <div class="resultsImage" id="results10"> <img id="imageResult10" src="https://wallpaperforu.com/wp-content/uploads/2020/07/abstract-wallpaper-20071915361652-scaled.jpg" />
+                                  <div id="verificationLoader22"></div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class='controls'>
+                            <button class='toggle' data-toggle='prev'>Prev</button>
+                            <button class='toggle' data-toggle='next'>Next</button>
+                          </div>
+                    </div>
+             
+                    <div id="search">
+                        <div id="inputDiv">
+                            <input id="backgroundInputURL" type="text" placeholder="Enter image url..." /> 
+                        </div>
+                        <div id="uploadImageDiv" ><i id="uploadImageEntry" class="fa fa-upload"></i>  <div id="verificationLoaderImage"></div></div>
+                      </div>
+           
                 </div>
-             </div>
+                <div id="logoContainer">
+                    <div id="search">
+                        <div id="iconDiv"><i class="fa fa-search"></i></div>
+                        <div id="inputDiv">
+                            <input id="logoInputSearch" type="text" placeholder="Search for a logo..." /> </div>
+                    </div>
 
+                    <div id="logoResults"> 
+                        <div class='logo_wrap'>
+                            <ul class='logo_carousel logo_is-set'>
+                              <li class='logo_carousel-seat'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results11">
+                                   <img id="imageResult11" src="https://assets.materialup.com/uploads/78efb2de-c025-44bb-b7a4-21a8f7d850e6/preview.jpg" /> 
+                                   <div id="verificationLoader24"></div>
+                                  </div>
+      
+                              </li>
+                              <li class='logo_carousel-seat'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results12">
+                                   <img id="imageResult12" src="https://www.creativefabrica.com/wp-content/uploads/2020/09/01/initial-DP-abstract-logo-vector-Graphics-5221433-1.jpg" /> 
+                                   <div id="verificationLoader25"></div>
+                                </div>
+                              </li>
+                              
+                              <li class='logo_carousel-seat'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results13"> 
+                                  <img id="imageResult13" src="https://toplogodesigner.files.wordpress.com/2012/11/abstract2.png" />
+                                  <div id="verificationLoader26"></div>
+                                </div>
+                              </li>
+                              <li class='logo_carousel-seat'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results14">
+                                   <img id="imageResult14" src="https://www.logodesign.net/images/nature-logo.png" /> 
+                                    <div id="verificationLoader27"></div>
+                                  </div>
+                                
+                              </li>
+                              <li class='logo_carousel-seat'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results15"> 
+                                  <img id="imageResult15" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeUIlQm3PqusyvYgMMkJv-XByHeCT4AQS7Hg&usqp=CAU" /> 
+                                  <div id="verificationLoader28"></div>
+                               
+                                </div>
+                              </li>
+                              <li class='logo_carousel-seat logo_is-ref'>
+                                <div class="logoResultsImage"  id="results16"> 
+                                  <img id="imageResult16" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ba7ad174569087.5c34221920639.jpg" /> 
+                                  <div id="verificationLoader29"></div>
+                                </div>
+                              </li>
+                              <li class='logo_carousel-seat logo_is-ref'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results17"> 
+                                  <img id="imageResult17" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvZmb2dEgYqkskAaenME-hHBpJg7ieVqjpfQ&usqp=CAU" /> 
+                                  <div id="verificationLoader30"></div>
+                              </div>
+                              </li>
+                              <li class='logo_carousel-seat logo_is-ref'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results18"> 
+                                  <img id="imageResult18" src="https://i.pinimg.com/550x/8d/c3/cd/8dc3cde32411fb65c0c8f823751697d3.jpg" /> 
+                                  <div id="verificationLoader31"></div>
+                                </div>
+                              
+                              </li>
+                              <li class='logo_carousel-seat logo_is-ref'>
+                                <div class="logoResultsImage" class="logoResultEx" id="results19"> 
+                                  <img id="imageResult19" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmcYhwCLfI3QTKtveCcdl2VZeG66f6jVUXCg&usqp=CAU" />
+                                  <div id="verificationLoader32"></div>
+                                </div>
+                               
+                              </li>
+                              <li class='logo_carousel-seat logo_is-ref'>
+                                <div class="logoResultsImage" class="logoResults" id="results20">
+                                   <img id="imageResult20" src="https://s3.amazonaws.com/cdn.designcrowd.com/blog/2019/11/42-Abstract-Logos/images/Huawei.jpg" /> 
+                                  <div id="verificationLoader33"></div></div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class='controls'>
+                            <button class='logo_toggle' data-toggle='prev'>Prev</button>
+                            <button class='logo_toggle' data-toggle='next'>Next</button>
+                          </div>
+                          
+                          
+                    </div>
+                    <div id="search">
+                        <div id="inputDiv">
+                            <input id="logoInputURL" type="text" placeholder="Enter logo image url..." /> 
+                        </div>
+                        <div id="uploadIconDiv"><i id="uploadIconEntry" class="fa fa-upload"></i> <div id="verificationLoaderIcon"></div></div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         
         <div id="tabcontent3">
             <div id='tabContainer3'>

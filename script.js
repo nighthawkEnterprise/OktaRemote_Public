@@ -255,54 +255,43 @@ tablinks4.addEventListener("click", async function() {
     tablinks3.style.color = "#193465";
     tablinks4.style.color = "black";
 })
-upload.addEventListener("click", async function() {
+
+uploadImageDiv.addEventListener("click", async function() {
+    console.log("UPLOAD IMAGE");
     let myHeaders = new Headers();
     let configObj = await mainFunction();
-    let backgroundUrl = backgroundInput.value;
-    let logoUrl = logoInput.value;
+    uploadImageEntry.style.display = 'none';
+    verificationLoaderImage.style.display = "block";
+    let backgroundUrl = backgroundInputURL.value;
     configObj.backgroundUrl = backgroundUrl;
-    configObj.logoUrl = logoUrl;
-    // console.log("checking configObj", configObj);
-    let bgEntryLength = configObj.backgroundUrl.length > 3;
-    let lgEntryLength = configObj.logoUrl.length > 3;
-    // console.log("bgEntryLength: ", bgEntryLength);
-    // console.log("logoEntryLength: ", lgEntryLength);
-    inputForm.style.display= "none";
-    uploadLoadContainer.style.display="block";
-
-    if(bgEntryLength && lgEntryLength) {
-        // console.log("DOUBLE");
-        inputForm.style.display = "none";
-        uploadImagesEntry(configObj);
-    } else if(bgEntryLength && !lgEntryLength) {
-        // console.log("SIngle");
-        onlyUploadImages(configObj);
-        chrome.tabs.reload();
-    }else if(!bgEntryLength && lgEntryLength) {
-        // console.log("ngle");
-        onlyUploadLogo(configObj); 
-        chrome.tabs.reload();
-    } else {
-        alert("Must enter valid URL");
-        uploadLoadContainer.style.display = "none";
-        inputForm.style.display = "flex";
-    }
-   
+    uploadImagesEntry(configObj);
 })
-async function onlyUploadImages(configObj) {
+uploadIconDiv.addEventListener("click", async function() {
+    console.log("UPLOAD LOGO");
+    let myHeaders = new Headers();
+    let configObj = await mainFunction();
+    uploadIconEntry.style.display = 'none';
+    verificationLoaderIcon.style.display = "block";
+    let logoURL = logoInputURL.value;
+    configObj.logoUrl = logoURL;
+    uploadLogoEntry(configObj);
+})
+async function uploadImagesEntry(configObj) {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
     myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
+
     const bgUrlToObject= async()=> {
-        const image = configObj.backgroundUrl; 
-        const response = await fetch(image).catch(err => errorUploadCatch(err));
+        const image = configObj.backgroundUrl;
+        console.log("IMAGE: ", image);
+        const response = await fetch(image).catch(err => errorUploadImageCatch(err));
         const blob = await response.blob();
         const file = await new File([blob], 'image.jpg', {type: blob.type});
         return file;
       }
     var file = await bgUrlToObject();
+    console.log("FILEEE: ", file);
     var formdata = new FormData();
-
     formdata.append("file", file);
 
     var requestOptions = {
@@ -315,36 +304,99 @@ async function onlyUploadImages(configObj) {
     fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/background-image`, requestOptions)
     .then(response => response.text())
     .then(result => {
-        uploadLoadContainer.style.display="none";
-        inputForm.style.display="flex";;
+        uploadImageEntry.style.display = 'block';
+        backgroundInputURL.style.border= "none";
+        backgroundInputURL.value = "";
+        backgroundInputURL.placeholder = "Enter background image url...";
+        verificationLoaderImage.style.display = "none";
+        console.log("RESULT: ", result);
         chrome.tabs.reload();
-        return result;
     })
-    .catch(error => {
-        alert("Error loading Page", error);
-        uploadLoadContainer.style.display="none";
+    .catch(error => console.log('error', error));
+}
 
-    });
+function errorUploadImageCatch(err) {
+    console.log("IN ERROR UPLOAD" );
+    backgroundInputURL.style.borderLeft= "solid 1px red";
+    backgroundInputURL.placeholder = "Image not supported by Okta API. Please try again!";
+    backgroundInputURL.value = ""; 
+    verificationLoaderImage.style.display="none";
+    verificationLoaderIcon.style.display="none";
+    uploadImageEntry.style.display = "block";
 }
-function errorUploadCatch(err) {
-    alert(err);
-    uploadLoadContainer.style.display="none";
-    inputForm.style.display = "flex";
-}
-async function onlyUploadLogo(configObj) {
+async function uploadLogoEntry(configObj) {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
     myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
 
     const logoUrlToObject= async()=> {
         const image = configObj.logoUrl;
-        const response = await fetch(image).catch(err => errorUploadCatch(err));
+        const response = await fetch(image).catch(err => errorUploadLogoCatch(err));
         const blob = await response.blob();
         const file = await new File([blob], 'image.jpg', {type: blob.type});
         return file;
       }
-    var file = await logoUrlToObject();    
+    var file = await logoUrlToObject();
     var formdata = new FormData();
+    formdata.append("file", file);
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+    console.log("File in Upload Logo Entry: ", file);
+    fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/logo`, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        // console.log(result);  
+        logoInputURL.style.border= 'none';
+        verificationLoaderIcon.style.display = "none"; 
+        logoInputURL.value = "";
+        logoInputURL.placeholder = "Enter logo image url here...";
+        uploadIconEntry.style.display = 'block';
+        chrome.tabs.reload();
+
+        return result;
+    })
+    .catch(error => {
+        alert('Error uploading logo', error);
+        console.log("IN ERROR");
+        verificationLoaderIcon.style.display = "none"; 
+        uploadIconEntry.style.display = 'block';
+        // uploadLoadContainer.style.display="none";
+
+    });
+}
+function errorUploadLogoCatch(err) {
+    console.log("IN ERROR UPLOAD" );
+    logoInputURL.style.borderLeft= "solid 1px red";
+    logoInputURL.placeholder = "Image not supported by Okta API. Please try again!";
+    logoInputURL.value = ""; 
+    verificationLoaderIcon.style.display="none";
+    uploadImageEntry.style.display = "block";
+    uploadIconEntry.style.display = "block";
+
+}
+async function onlyUploadImages(configObj) {
+    console.log("CONFIG OBJ: ", configObj);
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `SSWS ${configObj.token}`);
+    myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
+    const bgUrlToObject= async()=> {
+        const image = configObj.backgroundUrl;
+        let convertType= "image/jpeg";
+        console.log("IMAGE: ", image); 
+        const response = await fetch(image).catch(err => errorUploadCatch(err));
+        const blob = await response.blob();
+        const file = await new File([blob], 'image.jpeg', {type: blob.type});
+        return file;
+      }
+    var file = await bgUrlToObject();
+    var formdata = new FormData();
+    console.log("FILEEE::: ", file);
+    file.type= "image/jpeg";
+    console.log("FILEEE::: ", file);
     formdata.append("file", file);
 
     var requestOptions = {
@@ -353,19 +405,75 @@ async function onlyUploadLogo(configObj) {
         body: formdata,
         redirect: 'follow'
     };
+    console.log(`URL:: ${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/background-image`);
+
+    fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/background-image`, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        configObj.loader.style.display="none";
+        configObj.imageDiv.style.display="block";
+        chrome.tabs.reload();
+        return result;
+    })
+    .catch(err => {
+        console.log("ERROR: ", err);
+        alert("Error loading Page", err);
+        configObj.loader.style.display="none";
+
+    });
+}
+async function onlyUploadLogo(configObj) {
+    console.log("CONFIG OBJ: ", configObj);
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `SSWS ${configObj.token}`);
+    myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
+    const bgUrlToObject= async()=> {
+        const image = configObj.logoUrl;
+        console.log("IMAGE: ", image); 
+        let fileName = "image.jpg";
+        const response = await fetch(image).catch(err => errorUploadCatch(err));
+        const blob = await response.blob();
+        if(blob.type == 'image/jpeg' || blob.type == "image/jpg") {
+            fileName = "image.jpeg";
+        }
+        if(blob.type == 'image/png') {
+            fileName= "image.png";
+        }
+        console.log('fileName: ', fileName, " blobType: ", blob.type);
+        const file = await new File([blob], fileName, {type: blob.type});
+        return file;
+      }
+    var file = await bgUrlToObject();
+    var formdata = new FormData();
+    console.log("FILEEE::: ", file);
+    formdata.append("file", file);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+    console.log(`URL:: ${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/background-image`);
 
     fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/logo`, requestOptions)
     .then(response => response.text())
     .then(result => {
-        uploadLoadContainer.style.display="none";
-        inputForm.style.display="flex";;
+        configObj.loader.style.display="none";
+        configObj.logoImageDiv.style.display="block";
         chrome.tabs.reload();
         return result;
     })
-    .catch(error => {
-        alert("Error Updating Image", error);
-        uploadLoadContainer.style.display="none";    });
+    .catch(err => {
+        console.log("ERROR: ", err);
+        alert("Error loading Page", err);
+        configObj.loader.style.display="none";
+ 
+    });
 }
+
+
+
 async function uploadImages(configObj) {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
@@ -373,6 +481,7 @@ async function uploadImages(configObj) {
 
     const bgUrlToObject= async()=> {
         const image = configObj.backgroundUrl;
+        console.log("IMAGE IN UPLOAD IMAGES: ", image);
         const response = await fetch(image).catch(err => errorUploadCatch(err));
         const blob = await response.blob();
         const file = await new File([blob], 'image.jpg', {type: blob.type});
@@ -381,7 +490,7 @@ async function uploadImages(configObj) {
     var file = await bgUrlToObject();
     var formdata = new FormData();
     formdata.append("file", file);
-
+    console.log("FILLLEE in upload Images: ", file);
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -391,15 +500,17 @@ async function uploadImages(configObj) {
     fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/background-image`, requestOptions)
     .then(response => response.text())
     .then(result => {
+        console.log("RESULT: ", result);
         uploadLogo(configObj);
     })
     .catch(error => console.log('error', error));
 }
 async function uploadLogo(configObj) {
+    console.log("IN UPLOAD LOGO");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
     myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
-
+    console.log("Upload URL: ", configObj.logoUrl);
     const logoUrlToObject= async()=> {
         const image = configObj.logoUrl;
         const response = await fetch(image).catch(err => errorUploadCatch(err));
@@ -430,6 +541,9 @@ async function uploadLogo(configObj) {
     })
     .catch(error => console.log('error', error));
 }
+
+
+
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
@@ -437,114 +551,9 @@ function sleep(milliseconds) {
       currentDate = Date.now();
     } while (currentDate - date < milliseconds);
   }
-async function uploadImagesEntry(configObj) {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `SSWS ${configObj.token}`);
-    myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
 
-    const bgUrlToObject= async()=> {
-        const image = configObj.backgroundUrl;
-        const response = await fetch(image).catch(err => errorUploadCatch(err));
-        const blob = await response.blob();
-        const file = await new File([blob], 'image.jpg', {type: blob.type});
-        return file;
-      }
-    var file = await bgUrlToObject();
 
-    var formdata = new FormData();
-    formdata.append("file", file);
 
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: formdata,
-        redirect: 'follow'
-    };
-
-    fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/background-image`, requestOptions)
-    .then(response => response.text())
-    .then(result => {
-        uploadLogoEntry(configObj);
-    })
-    .catch(error => console.log('error', error));
-}
-async function uploadLogoEntry(configObj) {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `SSWS ${configObj.token}`);
-    myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
-
-    const logoUrlToObject= async()=> {
-        const image = configObj.logoUrl;
-        const response = await fetch(image).catch(err => errorUploadCatch(err));
-        const blob = await response.blob();
-        const file = await new File([blob], 'image.jpg', {type: blob.type});
-        return file;
-      }
-    var file = await logoUrlToObject();
-    var formdata = new FormData();
-    formdata.append("file", file);
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: formdata,
-        redirect: 'follow'
-    };
-
-    fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/logo`, requestOptions)
-    .then(response => response.text())
-    .then(result => {
-        // console.log(result);
-        uploadLoadContainer.style.display="none";
-        inputForm.style.display="flex";;
-        
-        chrome.tabs.reload();
-
-        return result;
-    })
-    .catch(error => {
-        alert('Error uploading image', error);
-        uploadLoadContainer.style.display="none";
-
-    });
-}
-async function uploadLogo(configObj) {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `SSWS ${configObj.token}`);
-    myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
-
-    const logoUrlToObject= async()=> {
-        const image = configObj.logoUrl;
-        const response = await fetch(image).catch(err => errorUploadCatch(err));
-        const blob = await response.blob();
-        const file = await new File([blob], 'image.jpg', {type: blob.type});
-        return file;
-      }
-    var file = await logoUrlToObject();
-    var formdata = new FormData();
-    formdata.append("file", file);
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: formdata,
-        redirect: 'follow'
-    };
-
-    fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}/logo`, requestOptions)
-    .then(response => response.text())
-    .then(result => {
-        configObj.image.style.display="block";
-        configObj.loader.style.display="none";
-        uploadLoadContainer.style.display="none";
-        inputForm.style.display="flex";;
-        chrome.tabs.reload();
-
-        return result;
-    })
-    .catch(error => {
-        alert("Error uploading image: ", error);
-        uploadLoadContainer.style.display="none";
-    });
-}
 edit.addEventListener("click", async function() {
     tenantInput.disabled = false;
     tokenInput.disabled= false;
@@ -827,7 +836,6 @@ image12.addEventListener("click", async function() {
 })
 
 
-
 oinSearch.addEventListener("keyup", async function(e) {
    
    let search = e.target.value;
@@ -846,6 +854,61 @@ oinSearch.addEventListener("keyup", async function(e) {
     })
 })
 
+backgroundInputSearch.addEventListener("keyup", debounce(saveInput, 400 ));
+function debounce( callback, delay ) {
+    let timeout;
+    return function() {
+        clearTimeout( timeout );
+        timeout = setTimeout( callback, delay );
+    }
+}
+async function saveInput(e){
+    verificationLoadersOn();
+    let search = backgroundInputSearch.value;
+    search += " wallpaper";
+    fetch(`https://serpapi.com/search.json?q=${search}&tbm=isch&ijn=0&tbs=itp:photos,isz:l&api_key=f5afc2bb0a4ba248ddf7494f8734116c2a983df10d3da2086c80fd858be405b8`)
+        .then(response => response.text())
+        .then(result => {
+            let resultJson = JSON.parse(result);
+            let imageResults = resultJson.images_results;
+            sortImages(imageResults);
+        })
+}
+async function sortImages(results) {
+    let imageCount = 0;
+    for(let i = 0; imageCount < 10; i++) {
+    const imageToFile= async()=> {
+        const image = results[i].original;
+        console.log("IMAGE: ", image);
+        const response = await fetch(image).catch(err => err);
+        console.log("RESPONSE: ", response);
+        const blob = await response.blob();
+        const file = await new File([blob], 'image.jpg', {type: blob.type});
+        return file;
+      }
+      var file = await imageToFile();
+      if(file.type == 'image/jpeg' || file.type == 'image/png') {
+        imageCount++;
+        displayImages(results[i].original, imageCount);
+      }
+    }
+}
+function displayImages(results,count) {
+    console.log("IN DISPLAY: ", count);
+    let resultCount = count + 6; 
+    if(resultCount > 10 ) {
+        resultCount = resultCount- 10; 
+    }
+    let el = `results${resultCount}`;
+    let element = document.getElementById(`${el}`);
+    let verficationLoaderId = resultCount + 12;
+    if(verficationLoaderId > 22) {
+        verficationLoaderId = verificationLoaderId - 10;
+    } 
+    let verficationLoaderString = `verificationLoader` + verficationLoaderId;
+    let imageResultString = `imageResult` + resultCount; 
+    element.innerHTML = `<img id=${imageResultString} src=${results} /> <div id=${verficationLoaderString}></div>`;
+}
 function displayResult(results) {
     tableBody.innerHTML = '';
     for(result of results) {
@@ -907,3 +970,441 @@ function displayResult(results) {
         tableBody.appendChild(row);
     }
 }
+
+
+// http://madewithenvy.com/ecosystem/articles/2015/exploring-order-flexbox-carousel/
+const $carousel = document.querySelector('.carousel');
+const $seats = document.querySelectorAll('.carousel-seat');
+const $toggle = document.querySelectorAll('.toggle');
+
+document.addEventListener("click", delegate(toggleFilter, toggleHandler));
+console.log("DOCUMENT: ", document);
+// Common helper for event delegation.
+function delegate(criteria, listener) {
+  return function(e) {
+    let el = e.target;
+    do {
+      if (!criteria(el)) {
+        continue;
+      }
+      e.delegateTarget = el;
+      listener.call(this, e);
+      return;
+    } while ((el = el.parentNode));
+  };
+}
+
+// Custom filter to check for required DOM elements
+function toggleFilter(elem) {
+  return (elem instanceof HTMLElement) && elem.matches(".toggle");
+  // OR
+  // For < IE9
+  // return elem.classList && elem.classList.contains('btn');
+}
+
+// Custom event handler function
+function toggleHandler(e) {
+  var $newSeat;
+  const $el = document.querySelector('.is-ref');
+  const $currSliderControl = e.delegateTarget;
+  // Info: e.target is what triggers the event dispatcher to trigger and e.currentTarget is what you assigned your listener to.
+
+  $el.classList.remove('is-ref');
+  if ($currSliderControl.getAttribute('data-toggle') === 'next') {
+    $newSeat = next($el);
+    $carousel.classList.remove('is-reversing');
+  } else {
+    $newSeat = prev($el);
+    $carousel.classList.add('is-reversing');
+  }
+
+  $newSeat.classList.add('is-ref');
+  $newSeat.style.order = 1;
+  for (var i = 2; i <= $seats.length; i++) {
+    $newSeat = next($newSeat);
+    $newSeat.style.order = i;
+  }
+
+  $carousel.classList.remove('is-set');
+  return setTimeout(function() {
+    return $carousel.classList.add('is-set');
+  }, 50);
+
+  function next($el) {
+    if ($el.nextElementSibling) {
+        console.log($el.nextElementSibling);
+      return $el.nextElementSibling;
+    } else {
+      return $carousel.firstElementChild;
+    }
+  }
+
+  function prev($el) {
+    if ($el.previousElementSibling) {
+      return $el.previousElementSibling;
+    } else {
+      return $carousel.lastElementChild;
+    }
+  }
+}
+// For Logo Carousel
+const $logo_carousel = document.querySelector('.logo_carousel');
+const $logo_seats = document.querySelectorAll('.logo_carousel-seat');
+const $logo_toggle = document.querySelectorAll('.logo_toggle');
+
+document.addEventListener("click", logo_delegate(logo_toggleFilter, logo_toggleHandler));
+
+// Common helper for event delegation.
+function logo_delegate(criteria, listener) {
+  return function(e) {
+    let el = e.target;
+    do {
+      if (!criteria(el)) {
+        continue;
+      }
+      e.delegateTarget = el;
+      listener.call(this, e);
+      return;
+    } while ((el = el.parentNode));
+  };
+}
+
+// Custom filter to check for required DOM elements
+function logo_toggleFilter(elem) {
+  return (elem instanceof HTMLElement) && elem.matches(".logo_toggle");
+  // OR
+  // For < IE9
+  // return elem.classList && elem.classList.contains('btn');
+}
+  function logo_toggleHandler(e) {
+    var $logo_newSeat;
+    const $el = document.querySelector('.logo_is-ref');
+    const $currSliderControl = e.delegateTarget;
+    // Info: e.target is what triggers the event dispatcher to trigger and e.currentTarget is what you assigned your listener to.
+  
+    $el.classList.remove('logo_is-ref');
+    if ($currSliderControl.getAttribute('data-toggle') === 'next') {
+      $logo_newSeat = next($el);
+      $logo_carousel.classList.remove('logo_is-reversing');
+    } else {
+      $logo_newSeat = prev($el);
+      $logo_carousel.classList.add('logo_is-reversing');
+    }
+  
+    $logo_newSeat.classList.add('logo_is-ref');
+    $logo_newSeat.style.order = 1;
+    for (var i = 2; i <= $logo_seats.length; i++) {
+      $logo_newSeat = next($logo_newSeat);
+      $logo_newSeat.style.order = i;
+    }
+  
+    $logo_carousel.classList.remove('logo_is-set');
+    return setTimeout(function() {
+      return $logo_carousel.classList.add('logo_is-set');
+    }, 50);
+  
+    function next($el) {
+      if ($el.nextElementSibling) {
+          console.log($el.nextElementSibling);
+        return $el.nextElementSibling;
+      } else {
+        return $logo_carousel.firstElementChild;
+      }
+    }
+  
+    function prev($el) {
+      if ($el.previousElementSibling) {
+        return $el.previousElementSibling;
+      } else {
+        return $logo_carousel.lastElementChild;
+      }
+    }
+  }
+
+  // Logo Carousel Done
+
+results1.addEventListener("click", async function() {
+    console.log("RESULTS 1");
+    let config = await mainFunction();
+    imageResult1.style.display= "none";
+    verificationLoader13.style.display = "block";
+    config.backgroundUrl = imageResult1.src;
+    config.loader =  verificationLoader13;
+    config.imageDiv = imageResult1;
+    results1.style.backgroundColor = "white";
+    config.image = imageResult1;
+    verificationLoader13.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+results2.addEventListener("click", async function() {
+    console.log("RESULTS 2");
+    let config = await mainFunction();
+    imageResult2.style.display= "none";
+    verificationLoader14.style.display = "block";
+    config.backgroundUrl = imageResult2.src;
+    config.loader =  verificationLoader14;
+    config.imageDiv = imageResult2;
+    results2.style.backgroundColor = "white";
+    config.image = imageResult2;
+    verificationLoader14.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+results3.addEventListener("click", async function() {
+    console.log("RESULTS 3");
+    let config = await mainFunction();
+    imageResult3.style.display= "none";
+    verificationLoader15.style.display = "block";
+    config.backgroundUrl = imageResult3.src;
+    config.loader =  verificationLoader15;
+    config.imageDiv = imageResult3;
+    results3.style.backgroundColor = "white";
+    config.image = imageResult3;
+    verificationLoader15.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+results4.addEventListener("click", async function() {
+    console.log("RESULTS 4");
+    let config = await mainFunction();
+    imageResult4.style.display= "none";
+    verificationLoader16.style.display = "block";
+    config.backgroundUrl = imageResult4.src;
+    config.loader =  verificationLoader16;
+    config.imageDiv = imageResult4;
+    results4.style.backgroundColor = "white";
+    config.image = imageResult4;
+    verificationLoader16.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+results5.addEventListener("click", async function() {
+    console.log("RESULTS 5");
+    let config = await mainFunction();
+    imageResult5.style.display= "none";
+    verificationLoader17.style.display = "block";
+    config.backgroundUrl = imageResult5.src;
+    config.loader =  verificationLoader17;
+    config.imageDiv = imageResult5;
+    results5.style.backgroundColor = "white";
+    config.image = imageResult5;
+    verificationLoader17.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+results6.addEventListener("click", async function() {
+    console.log("RESULTS 6");
+    let config = await mainFunction();
+    imageResult6.style.display= "none";
+    verificationLoader18.style.display = "block";
+    config.backgroundUrl = imageResult6.src;
+    config.loader =  verificationLoader18;
+    config.imageDiv = imageResult6;
+    results10.style.backgroundColor = "white";
+    config.image = imageResult6;
+    verificationLoader18.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+results7.addEventListener("click", async function() {
+    console.log("RESULTS 7");
+    let config = await mainFunction();
+    imageResult7.style.display= "none";
+    verificationLoader19.style.display = "block";
+    config.backgroundUrl = imageResult7.src;
+    config.loader =  verificationLoader19;
+    config.imageDiv = imageResult7;
+    results7.style.backgroundColor = "white";
+    config.image = imageResult7;        
+    verificationLoader19.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+
+results8.addEventListener("click", async function() {
+    console.log("RESULTS 8");
+    let config = await mainFunction();
+    imageResult8.style.display= "none";
+    verificationLoader20.style.display = "block";
+    config.backgroundUrl = imageResult8.src;
+    config.loader =  verificationLoader20;
+    config.imageDiv = imageResult8;
+    results8.style.backgroundColor = "white";
+    config.image = imageResult8;
+    verificationLoader20.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+
+results9.addEventListener("click", async function() {
+    console.log("RESULTS 9");
+
+    let config = await mainFunction();
+    imageResult9.style.display= "none";
+    verificationLoader21.style.display = "block";
+    config.backgroundUrl = imageResult9.src;
+    config.loader =  verificationLoader21;
+    config.imageDiv = imageResult9;
+    results9.style.backgroundColor = "white";
+    config.image = imageResult9;
+    verificationLoader21.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+
+results10.addEventListener("click", async function() {
+    console.log("RESULTS 10");
+    let config = await mainFunction();
+    imageResult10.style.display= "none";
+    verificationLoader22.style.display = "block";
+    config.backgroundUrl = imageResult10.src;
+    config.loader =  verificationLoader22;
+    config.imageDiv = imageResult10;
+    results10.style.backgroundColor = "white";
+    config.image = imageResult10;
+    verificationLoader22.style.backgroundColor = "white";
+    onlyUploadImages(config);
+});
+
+logoInputSearch.addEventListener("keyup", debounce(saveInputLogo, 400 ));
+function debounce( callback, delay ) {
+    let timeout;
+    return function() {
+        clearTimeout( timeout );
+        timeout = setTimeout( callback, delay );
+    }
+}
+function verificationLoadersOn() {
+    console.log("Testing Verfication Loader");
+    console.log("VERIFICATIOLOADER: ", verificationLoader13);
+    imageResult1.style.display = "none";
+    imageResult2.style.display = "none";
+    imageResult3.style.display = "none";
+    imageResult4.style.display = "none";
+    imageResult5.style.display = "none";
+    imageResult6.style.display = "none";
+    imageResult7.style.display = "none";
+    imageResult8.style.display = "none";
+    imageResult9.style.display = "none";
+    imageResult10.style.display = "none";
+
+    verificationLoader13.style.display = 'block';
+    verificationLoader14.style.display = 'block';
+    verificationLoader15.style.display = 'block';
+    verificationLoader16.style.display = 'block';
+    verificationLoader17.style.display = 'block';
+    verificationLoader18.style.display = 'block';
+    verificationLoader19.style.display = 'block';
+    verificationLoader20.style.display = 'block';
+    verificationLoader21.style.display = 'block';
+
+}
+function verificationLoadersOnLogo() {
+    console.log("Testing Verfication Loader");
+    console.log("VERIFICATIOLOADER: ", verificationLoader13);
+    imageResult11.style.display = "none";
+    imageResult12.style.display = "none";
+    imageResult13.style.display = "none";
+    imageResult14.style.display = "none";
+    imageResult15.style.display = "none";
+    imageResult16.style.display = "none";
+    imageResult17.style.display = "none";
+    imageResult18.style.display = "none";
+    imageResult19.style.display = "none";
+    imageResult20.style.display = "none";
+
+    verificationLoader24.style.display = 'block';
+    verificationLoader25.style.display = 'block';
+    verificationLoader26.style.display = 'block';
+    verificationLoader27.style.display = 'block';
+    verificationLoader28.style.display = 'block';
+    verificationLoader29.style.display = 'block';
+    verificationLoader30.style.display = 'block';
+    verificationLoader31.style.display = 'block';
+    verificationLoader32.style.display = 'block';
+    verificationLoader33.style.display = 'block';
+
+
+}
+
+function displayImages(results,count) {
+    console.log("IN DISPLAY: ", count);
+    let resultCount = count + 6; 
+    if(resultCount > 10 ) {
+        resultCount = resultCount- 10; 
+    }
+    let el = `results${resultCount}`;
+    let element = document.getElementById(`${el}`);
+    let verficationLoaderId = resultCount + 12;
+    if(verficationLoaderId > 22) {
+        verficationLoaderId = verificationLoaderId - 10;
+    } 
+    let verficationLoaderString = `verificationLoader` + verficationLoaderId;
+    let imageResultString = `imageResult` + resultCount; 
+    element.innerHTML = `<img id=${imageResultString} src=${results} /> <div id=${verficationLoaderString}></div>`;
+}
+function saveInputLogo(e){
+    verificationLoadersOnLogo();
+    let search = logoInputSearch.value;
+    search += " logo";
+    // console.log("SEARCH INPT:::: ", search);
+    fetch(`https://serpapi.com/search.json?q=${search}&tbm=isch&ijn=0&tbs=itp:photos,isz:l&api_key=f5afc2bb0a4ba248ddf7494f8734116c2a983df10d3da2086c80fd858be405b8`)
+        .then(response => response.text())
+        .then(result => {
+            let resultJson = JSON.parse(result);
+            let imageResults = resultJson.images_results;
+            sortLogos(imageResults);
+            // console.log("response: ", resultJson.images_results);
+    })
+}
+async function sortLogos(results) {
+    let imageCount = 0;
+    for(let i = 0; imageCount < 10; i++) {
+    const imageToFile= async()=> {
+        const image = results[i].original;
+        const response = await fetch(image);
+        const blob = await response.blob();
+        const file = await new File([blob], 'image.jpg', {type: blob.type});
+        return file;
+      }
+      var file = await imageToFile();
+      console.log(" FILE. TYPE: ", file.type);
+      console.log(" FILE. TYPE: ", file);
+
+      if(file.type == "image/png")  {
+        imageCount++;
+        displayLogoImages(results[i].original, imageCount);
+      }
+    }
+}
+function displayLogoImages(results,count) {
+    let resultCount = count + 16; 
+
+    if(resultCount > 20 ) {
+        resultCount = resultCount- 10; 
+    }
+    console.log("IN DISPLAY: ", resultCount, ': ', results);
+
+    let el = `results${resultCount}`;
+    let element = document.getElementById(`${el}`);
+    let verficationLoaderId = resultCount + 13;
+    if(verficationLoaderId > 33) {
+        verficationLoaderId = verificationLoaderId - 10;
+    } 
+    let verficationLoaderString = `verificationLoader` + verficationLoaderId;
+    let imageResultString = `imageResult` + resultCount; 
+    element.innerHTML = `<img id=${imageResultString} src=${results} /> <div id=${verficationLoaderString}></div>`;
+}
+
+logoResultsListeners(); 
+async function logoResultsListeners() {
+    console.log("IN LOGO RESULTS: ");
+    let config = await mainFunction();
+    let logoResultsImage = document.querySelectorAll(".logoResultsImage");
+    for(let i = 0 ; i < logoResultsImage.length; i++) {
+        console.log("ELEMENT: ", logoResultsImage[i]);
+        logoResultsImage[i].addEventListener("click", function() {
+            console.log("ELEMENT: ", logoResultsImage[i]);
+            logoResultsImage[i].children[0].style.display = "none";
+            config.logoImageDiv = logoResultsImage[i].children[0];
+            config.logoUrl = logoResultsImage[i].children[0].src;
+            config.loader= logoResultsImage[i].children[1];
+            config.loader.style.display = "block";
+            config.loader.style.display = "white";
+            onlyUploadLogo(config);
+        })
+    }
+}
+
