@@ -1,3 +1,7 @@
+html {
+  /* background-color: #F0FFFF; */
+  background-color: #F0FFFF;
+}
 #container {
     width: 500px;
     height: 500px;
@@ -64,7 +68,9 @@ body {font-family: Arial;}
   background-color: white;
   color: black;
 }
-
+#tablinks1 {
+  font-size: 20px; 
+}
 /* Style the tab content */
 #tabcontent1 {
   display: none;
@@ -306,9 +312,7 @@ table {
   font-size: 12px;
   font-weight: 500;
 }
-#tablinks1 {
-  font-size: 20px;
-}
+
 #tabcontent4 {
   display: none;
   opacity: 1;
