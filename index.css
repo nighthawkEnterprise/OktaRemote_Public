@@ -1,16 +1,23 @@
 html {
   /* background-color: #F0FFFF; */
   background-color: #F0FFFF;
+  overflow: hidden;
+  height:589px;
 }
+
 #container {
     width: 500px;
-    height: 500px;
+    height: 600px;
     /* border: solid 1px black; */
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
-body {font-family: Arial;}
+body {
+  font-family: Arial;
+  overflow:hidden;
+  height:589px;
+}
 
 /* Style the tab */
 .tab {
@@ -18,10 +25,11 @@ body {font-family: Arial;}
   background-color: #193465;
   display: flex;
   flex-direction: row;
+  height:63px;
 }
 #tabcontentcontainer {
     /* background-image: url("https://camo.githubusercontent.com/7f742c06af434f1ba717bdc4a1af9ffb180b1f0ddf73952496ca77b38f81c33e/68747470733a2f2f7777772e6f6b74612e636f6d2f73697465732f64656661756c742f66696c65732f4465765f4c6f676f2d30315f4c617267652d7468756d626e61696c2e706e67"); */
-    height: 90%;
+    height: 461px;
     /* border: solid .5px ccc  ; */
     transition: 0.5s;
     
@@ -79,7 +87,7 @@ body {font-family: Arial;}
   opacity: 1;
   height: 100%;
   /* padding: 4px; */
-  overflow: scroll;
+  overflow: auto;
   background-color: #ECECEC;
 
     
@@ -100,7 +108,7 @@ body {font-family: Arial;}
     border-top: none;
     opacity: 1;
     height: 100%;
-    overflow: scroll;
+    overflow: auto;
   }
   #tabcontent3 {
     display: none;
@@ -141,7 +149,7 @@ input {
   opacity: .55;
 }
 #themeContainer1 {
-  margin-top: 7px;
+  margin-top: 2px;
 }
 .themeImages {
   display: flex;
@@ -295,7 +303,7 @@ table {
 
 #searchResults {
   display: none;
-  overflow: scroll;
+  overflow: auto;
   height: 400px;
 }
 
@@ -1175,7 +1183,7 @@ table {
   flex-direction: column;
   /* border: solid 1px black; */
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
 }
 /* #backgroundSearch {
   border: solid 1px black;
@@ -1613,4 +1621,9 @@ table {
   100% {
     transform: translate(24px, 0);
   }
+}
+
+
+#bottomLinks {
+  border-top: solid 1px #FFFAFA;
 }

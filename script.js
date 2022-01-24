@@ -138,9 +138,15 @@ async function construct() {
         tabcontent4.style.display = "block";
         tablinks1.style.display = 'none';
         tablinks2.style.display= 'none';
+        tablinks5.style.display = 'none';
+        tablinks6.style.display = 'none';
+        tablinks7.style.display = 'none';
+        tablinks8.style.display = 'none';
+
 
         return false; 
     } else {
+        resetLinks();
         tablinks1.style.display = 'block';
         tablinks2.style.display= 'block';
         tabcontent1.style.display= "block";
@@ -154,104 +160,95 @@ construct();
 tablinks1.addEventListener("click", async function() {
     let config = await construct();
     if(config) {
-        tabcontent1.style.display = "none";
-        tabcontent2.style.display = "none";
-        tabcontent3.style.display = "none";
-        tabcontent4.style.display = "none";
-    
-        tablinks1.className = tablinks1.className.replace(" active", "");
-        tablinks2.className = tablinks2.className.replace(" active", "");
-        tablinks3.className = tablinks3.className.replace(" active", "");
-        tablinks4.className = tablinks4.className.replace(" active", "");
-    
+        resetLinks();
         tabcontent1.style.display = "block";
+        tablinks1.className = tablinks1.className.replace(" active", "");
         tablinks1.style.backgroundColor = "white";
-        tablinks2.style.backgroundColor = "#ECECEC";
-        tablinks3.style.backgroundColor = "#ECECEC";
-        tablinks4.style.backgroundColor = "#ECECEC";        
-        
         tablinks1.style.color = "black";
-        tablinks2.style.color = "#193465";
-        tablinks3.style.color = "#193465";
-        tablinks4.style.color = "#193465";
     }
 })
 tablinks2.addEventListener("click", async function() {
     let config = await construct();
     if(config) {
-        tabcontent1.style.display = "none";
-        tabcontent2.style.display = "none";
-        tabcontent3.style.display = "none";
-        tabcontent4.style.display = "none";
-
-        tablinks1.className = tablinks1.className.replace(" active", "");
-        tablinks2.className = tablinks2.className.replace(" active", "");
-        tablinks3.className = tablinks3.className.replace(" active", "");
-        tablinks4.className = tablinks4.className.replace(" active", "");
-    
+        resetLinks();
         tabcontent2.style.display = "block";
-
-        tablinks1.style.backgroundColor = "#ECECEC";
+        tablinks2.className = tablinks2.className.replace(" active", "");
         tablinks2.style.backgroundColor = "white";
-        tablinks3.style.backgroundColor = "#ECECEC";
-        tablinks4.style.backgroundColor = "#ECECEC";
-        
-        
-        tablinks1.style.color = "#193465";
         tablinks2.style.color = "black";
-        tablinks3.style.color = "#193465";
-        tablinks4.style.color = "#193465";
     }
 })
 tablinks3.addEventListener("click", async function() {
-
-    tabcontent1.style.display = "none";
-    tabcontent2.style.display = "none";
-    tabcontent3.style.display = "none";
-    tabcontent4.style.display = "none";
-
-    tablinks1.className = tablinks1.className.replace(" active", "");
-    tablinks2.className = tablinks2.className.replace(" active", "");
-    tablinks3.className = tablinks3.className.replace(" active", "");
-    tablinks4.className = tablinks4.className.replace(" active", "");
-
+    resetLinks();
     tabcontent3.style.display = "block";
-    
-    
-    tablinks1.style.backgroundColor = "#ECECEC";
-    tablinks2.style.backgroundColor = "#ECECEC";
+    tablinks3.className = tablinks3.className.replace(" active", "");
     tablinks3.style.backgroundColor = "white";
-    tablinks4.style.backgroundColor = "#ECECEC";
-    
-    tablinks1.style.color = "#193465";
-    tablinks2.style.color = "#193465";
     tablinks3.style.color = "black";
-    tablinks4.style.color = "#193465";
 })
 tablinks4.addEventListener("click", async function() {
-    tabcontent1.style.display = "none";
-    tabcontent2.style.display = "none";
-    tabcontent3.style.display = "none";
-    tabcontent4.style.display = "none";
-
-    tablinks1.className = tablinks1.className.replace(" active", "");
-    tablinks2.className = tablinks2.className.replace(" active", "");
-    tablinks3.className = tablinks3.className.replace(" active", "");
-    tablinks4.className = tablinks4.className.replace(" active", "");
-
+    resetLinks();
     tabcontent4.style.display = "block";
-    
-    
+    tablinks4.className = tablinks4.className.replace(" active", "");
+    tablinks4.style.backgroundColor = "white";
+    tablinks4.style.color = "black";
+})
+tablinks5.addEventListener("click", async function() {
+    resetLinks();
+    tabcontent5.style.display = "block";
+    tablinks5.className = tablinks5.className.replace(" active", "");
+    tablinks5.style.backgroundColor = "white";
+    tablinks5.style.color = "black";
+})
+tablinks6.addEventListener("click", async function() {
+    resetLinks();
+    tabcontent6.style.display = "block";
+    tablinks6.className = tablinks6.className.replace(" active", "");
+    tablinks6.style.backgroundColor = "white";
+    tablinks6.style.color = "black";
+})
+tablinks7.addEventListener("click", async function() {
+    resetLinks();
+    tabcontent7.style.display = "block";
+    tablinks7.className = tablinks7.className.replace(" active", "");
+    tablinks7.style.backgroundColor = "white";
+    tablinks7.style.color = "black";
+})
+tablinks8.addEventListener("click", async function() {
+    resetLinks();
+    tabcontent8.style.display = "block";
+    tablinks8.className = tablinks8.className.replace(" active", "");
+    tablinks8.style.backgroundColor = "white";
+    tablinks8.style.color = "black";
+})
+function resetLinks() {   
     tablinks1.style.backgroundColor = "#ECECEC";
     tablinks2.style.backgroundColor = "#ECECEC";
     tablinks3.style.backgroundColor = "#ECECEC";
-    tablinks4.style.backgroundColor = "white";
-    
+    tablinks4.style.backgroundColor = "#ECECEC";
+    tablinks5.style.backgroundColor = "#ECECEC";
+    tablinks6.style.backgroundColor = "#ECECEC";
+    tablinks7.style.backgroundColor = "#ECECEC";
+    tablinks8.style.backgroundColor = "#ECECEC";
+
+    tabcontent1.style.display = "none";
+    tabcontent2.style.display = "none";
+    tabcontent3.style.display = "none";
+    tabcontent4.style.display = "none";
+    tabcontent5.style.display = "none";
+    tabcontent6.style.display = "none";
+    tabcontent7.style.display = "none";
+    tabcontent8.style.display = "none";
+
     tablinks1.style.color = "#193465";
     tablinks2.style.color = "#193465";
     tablinks3.style.color = "#193465";
-    tablinks4.style.color = "black";
-})
+    tablinks4.style.color = "#193465";
+    tablinks5.style.color = "#193465";
+    tablinks6.style.color = "#193465";
+    tablinks7.style.color = "#193465";
+    tablinks8.style.color = "#193465";
+    
+    
+}
 
 uploadImageDiv.addEventListener("click", async function() {
     let myHeaders = new Headers();
