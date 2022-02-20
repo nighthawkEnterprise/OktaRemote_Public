@@ -31,12 +31,49 @@ if (
       }
     })
   }    
- // GOOGLE CHROME EXTENSION POPUP ISSUE   
+ // GOOGLE CHROME EXTENSION POPUP ISSUE 
+//  chrome.identity.launchWebAuthFlow(
+//     {'url': '<url-to-do-auth>', 'interactive': true},
+//     function(redirect_url) { console.log("redirect_url") });
+    
 
-  
+var authClient = new OktaAuth({issuer: 'https://konkoheights.okta.com', clientId: "0oa3ujhpwpzSyUsAF5d7", redirectUri: "https://lcjafejhcahcaaklgpdafhfkaaajimkn.chromiumapp.org"});
+console.log("AUTHCLIENT: ", authClient);
+authClient.session.exists().then(async function(exists) {
+    if(exists) {
+        console.log("exists!!");
+        let token = await authClient.token.getWithPopup();
+        console.log("TOKEN: ", token);
+        // try {
+        //     let token = await authClient.token.getWithPopup();
+        //     console.log("token: ", token);
+        // }
+        // catch(err) {
+        //     console.log("error: ", err);
+        // }
+    } else {
+        console.log("DOES NOT Exists");
+        try {
+            let token = await authClient.token.getWithoutPrompt();
+            console.log("token: ", token);
+        }
+        catch(err) {
+            console.log("error: ", err);
+        }
+    }
+});
+// Name of session is called SID 
+// chrome.cookies.getAll(
+//     details: CookieDetails,
+//     callback?: function,
+//   )
+// console.log("Session STORAGE: ", sessionStorage);
+// console.log("LOCAL STORAGE: ", localStorage);
 chrome.storage.sync.get(null, function(items) {
     var allKeys = Object.keys(items);
     var allValues= Object.values(items);
+    console.log("allkeys: ", allKeys);
+    console.log("All Values: ", allValues);
 });
 async function checkVerification() {
     var getToken = new Promise(function(resolve, reject){
@@ -1390,3 +1427,14 @@ async function logoResultsListeners() {
     }
 }
 
+
+
+// let modalBtn = document.getElementById("modal-btn")
+// let modal = document.querySelector(".modal")
+// let closeBtn = document.querySelector(".close-btn")
+// modalBtn.onclick = function(){
+//   modal.style.display = "block"
+// }
+// closeBtn.addEventLIstner = function(){
+//   modal.style.display = "none"
+// }

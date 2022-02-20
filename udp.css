@@ -1,0 +1,52 @@
+
+
+#modal {
+    display: none;
+    position: fixed;
+    /* padding-top: 50px;  */
+    left: 0;
+    top: 0;
+    width: 95%;
+    height: 93%;
+    opacity: 1;
+    margin-left: 10px;
+    /* border: solid; */
+    margin-top: 18px;
+    opacity: .9;
+    /* margin: auto; */
+    background-color: white;
+  
+  }
+#modalContainer {
+    display: flex;
+    
+}
+#modalClose {
+    display: flex;
+    justify-content: flex-end;
+  
+  }
+  #modalClose i {
+    font-size: 20px;
+    margin-right: 2px;
+    margin-top: 4px;
+  }
+
+.close-btn {
+    float: right; 
+    color: lightgray; 
+    font-size: 24px;  
+    font-weight: bold;
+  }
+  .close-btn:hover {
+    color: darkgray;
+  }
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  

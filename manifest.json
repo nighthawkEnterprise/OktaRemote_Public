@@ -12,11 +12,10 @@
         "32": "Okta_Remote1.png",
         "128": "Okta_Remote1.png"
     },
-    "background": {
-        "service_worker": "background.js"
-    },
     "permissions": [
-        "storage"
+        "storage",
+        "cookies",
+        "https://*.okta.com/*"
     ],
     "host_permissions": [
         "*://*/*"
