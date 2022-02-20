@@ -866,6 +866,7 @@ oinSearch.addEventListener("keyup", async function(e) {
     fetch(`https://www.okta.com/oktaapi/integration/search?search=${search}`)
     .then(response => response.text())
     .then(result => {
+        console.log("Result: ", result);
         let jsonResult = JSON.parse(result);
         displayResult(jsonResult.results);
     })
@@ -924,16 +925,14 @@ function displayImages(results,count) {
     element.innerHTML = `<img id=${imageResultString} src=${results} /> <div id=${verficationLoaderString}></div>`;
 }
 function displayResult(results) {
+    console.log("RESULTS: ", results);
     tableBody.innerHTML = '';
     for(result of results) {
-        let access = result.access.split(',');
+        let access = result.access;
+        let provisioning = result.provisioning;
         let integration = result.integration;
         let integrationRefined = integration.replace(/\s/g, "-");
         let row= document.createElement('tr');
-        let saml = access.find(a =>a.includes("SAML"));
-        let swa = access.find(a =>a.includes("SWA"));
-        let provisioning = access.find(a =>a.includes("Provisioning"));
-        let workflows = access.find(a =>a.includes("Workflows"));
         let td1= document.createElement("td");
         let targetLink = `https://www.okta.com/integrations/${integrationRefined}/#overview`;
         td1.setAttribute('id', 'logoTd')
@@ -952,25 +951,25 @@ function displayResult(results) {
         td2.appendChild(name);
         td2.setAttribute('id', 'nameField');
         let td3 = document.createElement('td');
-        if(saml) {
+        if(access.includes("SAML")) {
             let icon = document.createElement('i');
             icon.setAttribute('class', 'fa fa-times');
             td3.appendChild(icon);
         }
         let td4 = document.createElement('td');
-        if(swa) {
+        if(access.includes("SWA")) {
             let icon = document.createElement('i');
             icon.setAttribute('class', 'fa fa-times');
             td4.appendChild(icon);
         }
         let td5 = document.createElement('td');
-        if(provisioning) {
+        if(provisioning.length > 0) {
             let icon = document.createElement('i');
             icon.setAttribute('class', 'fa fa-times');
             td5.appendChild(icon);
         }
         let td6 = document.createElement('td');
-        if(workflows) {
+        if(access.includes("Workflows Connectors")) {
             let icon = document.createElement('i');
             icon.setAttribute('class', 'fa fa-times');
             td6.appendChild(icon);

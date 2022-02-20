@@ -108,7 +108,7 @@
                     <div id="search">
                         <div id="iconDiv"><i class="fa fa-search"></i></div>
                         <div id="inputDiv">
-                            <input id="backgroundInputSearch" type="text" placeholder="Search for an background image..." />
+                            <input id="backgroundInputSearch" autocomplete="off" type="text" placeholder="Search for an background image..." />
                         </div>
                     </div>
                     <!-- <input id="backgroundInput" type="text" placeholder="Search for an app..." />  -->
@@ -185,7 +185,7 @@
              
                     <div id="search">
                         <div id="inputDiv">
-                            <input id="backgroundInputURL" type="text" placeholder="Enter image url..." /> 
+                            <input id="backgroundInputURL" autocomplete="off" type="text" placeholder="Enter image url..." /> 
                         </div>
                         <div id="uploadImageDiv" ><i id="uploadImageEntry" class="fa fa-upload"></i>  <div id="verificationLoaderImage"></div></div>
                       </div>
@@ -195,7 +195,7 @@
                     <div id="search">
                         <div id="iconDiv"><i class="fa fa-search"></i></div>
                         <div id="inputDiv">
-                            <input id="logoInputSearch" type="text" placeholder="Search for a logo..." /> </div>
+                            <input id="logoInputSearch"autocomplete="off" type="text" placeholder="Search for a logo..." /> </div>
                     </div>
 
                     <div id="logoResults"> 
@@ -277,7 +277,7 @@
                     </div>
                     <div id="search">
                         <div id="inputDiv">
-                            <input id="logoInputURL" type="text" placeholder="Enter logo image url..." /> 
+                            <input id="logoInputURL" type="text" autocomplete="off" placeholder="Enter logo image url..." /> 
                         </div>
                         <div id="uploadIconDiv"><i id="uploadIconEntry" class="fa fa-upload"></i> <div id="verificationLoaderIcon"></div></div>
                     </div>
@@ -290,7 +290,7 @@
             <div id='tabContainer3'>
                 <div id="search">
                     <div id="iconDiv"><i class="fa fa-search"></i></div>
-                    <div id="inputDiv"><input id="oinSearch" type="text" placeholder="Search for an app..." /> </div>
+                    <div id="inputDiv"><input id="oinSearch" type="text" autocomplete="off" placeholder="Search for an app..." /> </div>
                 </div>
                 <div id="searchResults">
                     <table id="resultsHeader"> 
@@ -321,12 +321,12 @@
                         <div id="verifyFormForm">
                             <div id="verify-inputs-domain"> 
                                 <div id="domainLabel"><h4> Domain </h4></div>
-                                <input type="text" name="field5" id="tenantInput" placeholder="https://domain.okta.com" />
+                                <input type="text" name="field5" autocomplete="off" id="tenantInput" placeholder="https://domain.okta.com" />
                             </div>
                             <div id="verify-inputs-token"> 
                                 <!-- <label for="field3">Tenant Token </label> -->
                                 <div id="tokenLabel"><h4> Token </h4></div>
-                                <input type="password" name="field6" id="tokenInput" placeholder="Token" />
+                                <input type="password" name="field6" autocomplete="off" id="tokenInput" placeholder="Token" />
                             </div>
                             <div id="submit-form">
                                 <button  id="verify"> Verify </button>
