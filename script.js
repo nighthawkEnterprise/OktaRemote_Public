@@ -897,9 +897,15 @@ async function sortImages(results) {
     for(let i = 0; imageCount < 10; i++) {
     const imageToFile= async()=> {
         const image = results[i].original;
-        const response = await fetch(image).catch(err => err);
-        const blob = await response.blob();
-        const file = await new File([blob], 'image.jpg', {type: blob.type});
+        const response = await fetch(image).catch(err => console.log(err));
+        let file;
+        if(typeof response != 'undefined') {
+            const blob = await response.blob();
+            file = await new File([blob], 'image.jpg', {type: blob.type});
+        } else {
+            const blob = new Blob();
+            file = await new File([blob], 'image.jpg', {type: "block"});
+        }
         return file;
       }
       var file = await imageToFile();
@@ -1346,12 +1352,19 @@ async function sortLogos(results) {
     for(let i = 0; imageCount < 10; i++) {
     const imageToFile= async()=> {
         const image = results[i].original;
-        const response = await fetch(image);
-        const blob = await response.blob();
-        const file = await new File([blob], 'image.jpg', {type: blob.type});
+        const response = await fetch(image).catch(err => console.log(err));
+        let file;
+        if(typeof response != 'undefined') {
+            const blob = await response.blob();
+            file = await new File([blob], 'image.jpg', {type: blob.type});
+        } else {
+            const blob = new Blob();
+            file = await new File([blob], 'image.jpg', {type: "block"});
+        }
         return file;
       }
       var file = await imageToFile();
+
       if(file.type == "image/png")  {
         imageCount++;
         displayLogoImages(results[i].original, imageCount);
