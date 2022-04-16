@@ -710,147 +710,44 @@ function getThemeId(themeObjConfig) {
       })
       .catch(error => console.log('error', error));
 }
-image1.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image1.src;
-    image1.style.display= "none";
-    verificationLoader.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image1;
-    config.loader =  verificationLoader;
-    verificationLoader.style.backgroundColor = "white";
-    config.logoUrl = "https://www.fblake.bank/assets/files/Ywd7MErv/FBOTL_App%20Images_Apple_Store_Icon.jpg"
-    uploadImages(config);
-});
-image2.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image1.src;
-    image2.style.display= "none";
-    verificationLoader2.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image2;
-    config.backgroundUrl = image2.src;
-    config.loader = verificationLoader2;
 
-    config.logoUrl = "https://www.fblake.bank/assets/files/Ywd7MErv/FBOTL_App%20Images_Apple_Store_Icon.jpg"
-    uploadImages(config);
-})
-image3.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image3.src;
-    config.logoUrl = "https://www.fblake.bank/assets/files/Ywd7MErv/FBOTL_App%20Images_Apple_Store_Icon.jpg"
-    image3.style.display= "none";
-    verificationLoader3.style.display = "block";
-    image2Box.style.backgroundColor = "white";
-    config.loader = verificationLoader3;
+defaultImageListeners();
 
-    config.image = image3;
-
-    uploadImages(config);
-})
-image4.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image4.src;
-    config.logoUrl = "https://www.nejmcareercenter.org/getasset/475607b1-6d24-4291-a16a-e895ec099542/";
-    image4.style.display= "none";
-    verificationLoader4.style.display = "block";
-    image3Box.style.backgroundColor = "white";
-    config.image = image4;
-    config.loader = verificationLoader4;
-
-    uploadImages(config);
-});
-image5.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image5.src;
-    config.logoUrl = "https://www.nejmcareercenter.org/getasset/475607b1-6d24-4291-a16a-e895ec099542/";    
-    config.loader = verificationLoader5;
-    image5.style.display= "none";
-    verificationLoader5.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image5;
-    uploadImages(config);
-})
-image6.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image6.src;
-    config.logoUrl = "https://www.nejmcareercenter.org/getasset/475607b1-6d24-4291-a16a-e895ec099542/";
-    config.loader = verificationLoader6;
-    
-    image6.style.display= "none";
-    verificationLoader6.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image6;
-
-    uploadImages(config);
-
-})
-image7.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image7.src;
-    config.logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiKUrKQ1JFkRT8MWTgLVZ3vP2zurzwvezHSrWrcWLJCNDl9TLIRFl-v7etSI7FXuGYaEc&usqp=CAU";
-    config.loader = verificationLoader7;
-    image7.style.display= "none";
-    verificationLoader7.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image7;
-    uploadImages(config);
-});
-image8.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image8.src;
-    config.logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiKUrKQ1JFkRT8MWTgLVZ3vP2zurzwvezHSrWrcWLJCNDl9TLIRFl-v7etSI7FXuGYaEc&usqp=CAU";
-    config.loader = verificationLoader8; 
-    image8.style.display= "none";
-    verificationLoader8.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image8;
-    uploadImages(config);
-})
-image9.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image9.src;
-    config.logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiKUrKQ1JFkRT8MWTgLVZ3vP2zurzwvezHSrWrcWLJCNDl9TLIRFl-v7etSI7FXuGYaEc&usqp=CAU";
-    config.loader = verificationLoader9;
-    image9.style.display= "none";
-    verificationLoader9.style.display = "block";
-    image9Box.style.backgroundColor = "white";
-    config.image = image9;
-    uploadImages(config);
-})
-image10.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image10.src;
-    config.logoUrl = "https://www.pinclipart.com/picdir/big/8-88658_support-groups-dbsa-hands-together-logo-clipart.png";
-    config.loader = verificationLoader10;
-    image10.style.display= "none";
-    verificationLoader10.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image10;
-    uploadImages(config);
-});
-image11.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image11.src;
-    config.logoUrl = "https://www.pinclipart.com/picdir/big/8-88658_support-groups-dbsa-hands-together-logo-clipart.png";
-    config.loader = verificationLoader11; 
-    image11.style.display= "none";
-    verificationLoader11.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image11;
-    uploadImages(config);
-})
-image12.addEventListener("click", async function() {
-    let config = await mainFunction();
-    config.backgroundUrl = image12.src;
-    config.logoUrl = "https://www.pinclipart.com/picdir/big/8-88658_support-groups-dbsa-hands-together-logo-clipart.png";
-    config.loader = verificationLoader12;    
-    image12.style.display= "none";
-    verificationLoader12.style.display = "block";
-    image1Box.style.backgroundColor = "white";
-    config.image = image12;
-    uploadImages(config);
-})
+async function defaultImageListeners() {
+    let defaultImages = document.querySelectorAll(".image");
+    for(let i = 0; i < defaultImages.length; i++) {
+        defaultImages[i].addEventListener("click", async function() {
+            let config = await mainFunction();
+            let currentImageBox = defaultImages[i];
+            let currentImageBoxChildren = defaultImages[i].children;
+            let currentImage = currentImageBoxChildren[0];
+            let currentLoader = currentImageBoxChildren[1];
+            console.log(currentImage.id);
+            if(currentImage.src.includes("finance")) {
+                config.logoUrl = "./imgs/logo/finance-logo.jpeg";
+            } 
+            if(currentImage.src.includes("healthcare")) {
+                config.logoUrl = "./imgs/logo/health-logo.png";
+            } 
+            if(currentImage.src.includes("informationaltechnology")) {
+                config.logoUrl = "./imgs/logo/it-logo.png";
+            } 
+            if(currentImage.src.includes("travel")) {
+                config.logoUrl = "./imgs/logo/travel-logo.png";
+            } 
+            if(currentImage.src.includes("okta")) {
+                config.logoUrl = "./imgs/logo/okta-logo.png";
+            } 
+            config.backgroundUrl = currentImage.src;
+            config.loader = currentLoader;
+            config.image = currentImage;
+            currentImage.style.display= "none";
+            currentImageBox.style.backgroundColor = "white";
+            currentLoader.style.display = "block";
+            uploadImages(config);
+        });
+    }
+}
 
 
 oinSearch.addEventListener("keyup", async function(e) {
@@ -1139,130 +1036,56 @@ function logo_toggleFilter(elem) {
 
   // Logo Carousel Done
 
-results1.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult1.style.display= "none";
-    verificationLoader13.style.display = "block";
-    config.backgroundUrl = imageResult1.src;
-    config.loader =  verificationLoader13;
-    config.imageDiv = imageResult1;
-    results1.style.backgroundColor = "white";
-    config.image = imageResult1;
-    verificationLoader13.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
-results2.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult2.style.display= "none";
-    verificationLoader14.style.display = "block";
-    config.backgroundUrl = imageResult2.src;
-    config.loader =  verificationLoader14;
-    config.imageDiv = imageResult2;
-    results2.style.backgroundColor = "white";
-    config.image = imageResult2;
-    verificationLoader14.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
-results3.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult3.style.display= "none";
-    verificationLoader15.style.display = "block";
-    config.backgroundUrl = imageResult3.src;
-    config.loader =  verificationLoader15;
-    config.imageDiv = imageResult3;
-    results3.style.backgroundColor = "white";
-    config.image = imageResult3;
-    verificationLoader15.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
-results4.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult4.style.display= "none";
-    verificationLoader16.style.display = "block";
-    config.backgroundUrl = imageResult4.src;
-    config.loader =  verificationLoader16;
-    config.imageDiv = imageResult4;
-    results4.style.backgroundColor = "white";
-    config.image = imageResult4;
-    verificationLoader16.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
-results5.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult5.style.display= "none";
-    verificationLoader17.style.display = "block";
-    config.backgroundUrl = imageResult5.src;
-    config.loader =  verificationLoader17;
-    config.imageDiv = imageResult5;
-    results5.style.backgroundColor = "white";
-    config.image = imageResult5;
-    verificationLoader17.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
-results6.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult6.style.display= "none";
-    verificationLoader18.style.display = "block";
-    config.backgroundUrl = imageResult6.src;
-    config.loader =  verificationLoader18;
-    config.imageDiv = imageResult6;
-    results10.style.backgroundColor = "white";
-    config.image = imageResult6;
-    verificationLoader18.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
-results7.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult7.style.display= "none";
-    verificationLoader19.style.display = "block";
-    config.backgroundUrl = imageResult7.src;
-    config.loader =  verificationLoader19;
-    config.imageDiv = imageResult7;
-    results7.style.backgroundColor = "white";
-    config.image = imageResult7;        
-    verificationLoader19.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
 
-results8.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult8.style.display= "none";
-    verificationLoader20.style.display = "block";
-    config.backgroundUrl = imageResult8.src;
-    config.loader =  verificationLoader20;
-    config.imageDiv = imageResult8;
-    results8.style.backgroundColor = "white";
-    config.image = imageResult8;
-    verificationLoader20.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
+// Tab Content 2: Image Search Carousel 
+imageResultsListener();
+async function imageResultsListener() {
+    let resultsImageOptions = document.querySelectorAll(".resultsImage");
+    for(let i = 0; i < resultsImageOptions.length; i++) {
+        resultsImageOptions[i].addEventListener("click", async function() {
+            let config = await mainFunction();
+            let currentResultsImageBox = resultsImageOptions[i];
+            let currentResultsImageBoxChildren = currentResultsImageBox.children;
+            let currentResultsImage = currentResultsImageBoxChildren[0];
+            let currentResultsLoader = currentResultsImageBoxChildren[1];
+            console.log("currentResultsImageBox: ", currentResultsImageBox);
+            console.log("currentResultsImage : ", currentResultsImage.src);
+            console.log("currentResultsLoader : ", currentResultsLoader);
+            config.backgroundUrl = currentResultsImage.src;
+            config.loader = currentResultsLoader;
+            config.imageDiv = currentResultsImage;
+            config.image = currentResultsImage;
 
-results9.addEventListener("click", async function() {
-    let config = await mainFunction();
-    imageResult9.style.display= "none";
-    verificationLoader21.style.display = "block";
-    config.backgroundUrl = imageResult9.src;
-    config.loader =  verificationLoader21;
-    config.imageDiv = imageResult9;
-    results9.style.backgroundColor = "white";
-    config.image = imageResult9;
-    verificationLoader21.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
+            currentResultsImage.style.display = "none";
+            currentResultsLoader.style.display = "block";
 
-results10.addEventListener("click", async function() {
+            currentResultsImageBox.style.backgroundColor = "white";
+            currentResultsLoader.style.backgroundColor = "white";
+            console.log("config: ", config);
+            onlyUploadImages(config);
+        })
+    }
+}
+logoResultsListeners(); 
+async function logoResultsListeners() {
     let config = await mainFunction();
-    imageResult10.style.display= "none";
-    verificationLoader22.style.display = "block";
-    config.backgroundUrl = imageResult10.src;
-    config.loader =  verificationLoader22;
-    config.imageDiv = imageResult10;
-    results10.style.backgroundColor = "white";
-    config.image = imageResult10;
-    verificationLoader22.style.backgroundColor = "white";
-    onlyUploadImages(config);
-});
+    let logoResultsImage = document.querySelectorAll(".logoResultsImage");
+    for(let i = 0 ; i < logoResultsImage.length; i++) {
+        logoResultsImage[i].addEventListener("click", function() {
+            logoResultsImage[i].children[0].style.display = "none";
+            config.logoImageDiv = logoResultsImage[i].children[0];
+            config.logoUrl = logoResultsImage[i].children[0].src;
+            config.loader= logoResultsImage[i].children[1];
+            config.loader.style.display = "block";
+            config.loader.style.display = "white";
+            onlyUploadLogo(config);
+        })
+    }
+}
 
+
+
+// END: Tab Content 2: Image Search Carousel 
 logoInputSearch.addEventListener("keyup", debounce(saveInputLogo, 400 ));
 function debounce( callback, delay ) {
     let timeout;
@@ -1386,22 +1209,5 @@ function displayLogoImages(results,count) {
     let verficationLoaderString = `verificationLoader` + verficationLoaderId;
     let imageResultString = `imageResult` + resultCount; 
     element.innerHTML = `<img id=${imageResultString} src=${results} /> <div id=${verficationLoaderString}></div>`;
-}
-
-logoResultsListeners(); 
-async function logoResultsListeners() {
-    let config = await mainFunction();
-    let logoResultsImage = document.querySelectorAll(".logoResultsImage");
-    for(let i = 0 ; i < logoResultsImage.length; i++) {
-        logoResultsImage[i].addEventListener("click", function() {
-            logoResultsImage[i].children[0].style.display = "none";
-            config.logoImageDiv = logoResultsImage[i].children[0];
-            config.logoUrl = logoResultsImage[i].children[0].src;
-            config.loader= logoResultsImage[i].children[1];
-            config.loader.style.display = "block";
-            config.loader.style.display = "white";
-            onlyUploadLogo(config);
-        })
-    }
 }
 
