@@ -1,276 +1,8 @@
-// GOOGLE CHROME POPUP ISSUES FOR SECONDARY MONITORS
-if (
-    // From testing the following conditions seem to indicate that the popup was opened on a secondary monitor
-    window.screenLeft < 0 ||
-    window.screenTop < 0 ||
-    window.screenLeft > window.screen.width ||
-    window.screenTop > window.screen.height
-  ) {
-    chrome.runtime.getPlatformInfo(function (info) {
-      if (info.os === 'mac') {
-        const fontFaceSheet = new CSSStyleSheet()
-        fontFaceSheet.insertRule(`
-          @keyframes redraw {
-            0% {
-              opacity: 1;
-            }
-            100% {
-              opacity: .99;
-            }
-          }
-        `)
-        fontFaceSheet.insertRule(`
-          html {
-            animation: redraw 1s linear infinite;
-          }
-        `)
-        document.adoptedStyleSheets = [
-          ...document.adoptedStyleSheets,
-          fontFaceSheet,
-        ]
-      }
-    })
-  }    
- // GOOGLE CHROME EXTENSION POPUP ISSUE   
 
-  
-chrome.storage.sync.get(null, function(items) {
-    var allKeys = Object.keys(items);
-    var allValues= Object.values(items);
-});
-async function checkVerification() {
-    var getToken = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("token",  ({token})=> {
-            resolve(token);
-        })
-    });
-    var getTenant = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("tenant",  ({tenant})=> {
-            resolve(tenant);
-        })
-    });
-    var getVerfication = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("verified",  ({verified})=> {
-            resolve(verified);
-        })
-    });
-    var getBrandId = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("brandId",  ({brandId})=> {
-            resolve(brandId);
-        })
-    });
-    var getThemeId = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("themeId",  ({themeId})=> {
-            resolve(themeId);
-        })
-    });
-    const tenant = await getTenant;
-    const token = await getToken;
-    const brandId = await getBrandId;
-    const themeId = await getThemeId;
-    const verified = await getVerfication;
-    let configObj = 
-    {
-        tenant,
-        token,
-        brandId,
-        themeId,
-        verified,
-    }
-    if(configObj.verified) {
-        constructVerification(configObj);
-    }
-}
-checkVerification();
-async function mainFunction() {
-    
-    var getToken = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("token",  ({token})=> {
-            resolve(token);
-        })
-    });
-    var getTenant = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("tenant",  ({tenant})=> {
-            resolve(tenant);
-        })
-    });
-    var getVerfication = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("verified",  ({verified})=> {
-            resolve(verified);
-        })
-    });
-    var getBrandId = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("brandId",  ({brandId})=> {
-            resolve(brandId);
-        })
-    });
-    var getThemeId = new Promise(function(resolve, reject){
-        chrome.storage.sync.get("themeId",  ({themeId})=> {
-            resolve(themeId);
-        })
-    });
-    const tenant = await getTenant;
-    const token = await getToken;
-    const brandId = await getBrandId;
-    const themeId = await getThemeId;
-    const verified = await getVerfication;
 
-    let configObj = {
-        tenant,
-        token,
-        brandId,
-        themeId,
-        verified
-    }
-    if(verified) {
-        tenantInput.value = tenant;
-        tokenInput.value = token;
-        configObj.initialVerification = false; 
-        verifiedSuccessfully(configObj);
-    } else {
-        verifiedUnsuccessfully();
-    }
-    return configObj;
-}
-async function construct() {
-    let configObj = await mainFunction();
-    if(!configObj.verified) {
-        tabcontent4.style.display = "block";
-        tablinks1.style.display = 'none';
-        tablinks2.style.display= 'none';
+// ____________________LOADERS END_________________
 
-        return false; 
-    } else {
-        tablinks1.style.display = 'block';
-        tablinks2.style.display= 'block';
-        tabcontent1.style.display= "block";
-        tablinks1.style.backgroundColor = "white";
-        tablinks1.style.color = "black";
-  
-        return true;
-    }
-}
-construct();
-tablinks1.addEventListener("click", async function() {
-    let config = await construct();
-    if(config) {
-        tabcontent1.style.display = "none";
-        tabcontent2.style.display = "none";
-        tabcontent3.style.display = "none";
-        tabcontent4.style.display = "none";
-    
-        tablinks1.className = tablinks1.className.replace(" active", "");
-        tablinks2.className = tablinks2.className.replace(" active", "");
-        tablinks3.className = tablinks3.className.replace(" active", "");
-        tablinks4.className = tablinks4.className.replace(" active", "");
-    
-        tabcontent1.style.display = "block";
-        tablinks1.style.backgroundColor = "white";
-        tablinks2.style.backgroundColor = "#ECECEC";
-        tablinks3.style.backgroundColor = "#ECECEC";
-        tablinks4.style.backgroundColor = "#ECECEC";        
-        
-        tablinks1.style.color = "black";
-        tablinks2.style.color = "#193465";
-        tablinks3.style.color = "#193465";
-        tablinks4.style.color = "#193465";
-    }
-})
-tablinks2.addEventListener("click", async function() {
-    let config = await construct();
-    if(config) {
-        tabcontent1.style.display = "none";
-        tabcontent2.style.display = "none";
-        tabcontent3.style.display = "none";
-        tabcontent4.style.display = "none";
 
-        tablinks1.className = tablinks1.className.replace(" active", "");
-        tablinks2.className = tablinks2.className.replace(" active", "");
-        tablinks3.className = tablinks3.className.replace(" active", "");
-        tablinks4.className = tablinks4.className.replace(" active", "");
-    
-        tabcontent2.style.display = "block";
-
-        tablinks1.style.backgroundColor = "#ECECEC";
-        tablinks2.style.backgroundColor = "white";
-        tablinks3.style.backgroundColor = "#ECECEC";
-        tablinks4.style.backgroundColor = "#ECECEC";
-        
-        
-        tablinks1.style.color = "#193465";
-        tablinks2.style.color = "black";
-        tablinks3.style.color = "#193465";
-        tablinks4.style.color = "#193465";
-    }
-})
-tablinks3.addEventListener("click", async function() {
-
-    tabcontent1.style.display = "none";
-    tabcontent2.style.display = "none";
-    tabcontent3.style.display = "none";
-    tabcontent4.style.display = "none";
-
-    tablinks1.className = tablinks1.className.replace(" active", "");
-    tablinks2.className = tablinks2.className.replace(" active", "");
-    tablinks3.className = tablinks3.className.replace(" active", "");
-    tablinks4.className = tablinks4.className.replace(" active", "");
-
-    tabcontent3.style.display = "block";
-    
-    
-    tablinks1.style.backgroundColor = "#ECECEC";
-    tablinks2.style.backgroundColor = "#ECECEC";
-    tablinks3.style.backgroundColor = "white";
-    tablinks4.style.backgroundColor = "#ECECEC";
-    
-    tablinks1.style.color = "#193465";
-    tablinks2.style.color = "#193465";
-    tablinks3.style.color = "black";
-    tablinks4.style.color = "#193465";
-})
-tablinks4.addEventListener("click", async function() {
-    tabcontent1.style.display = "none";
-    tabcontent2.style.display = "none";
-    tabcontent3.style.display = "none";
-    tabcontent4.style.display = "none";
-
-    tablinks1.className = tablinks1.className.replace(" active", "");
-    tablinks2.className = tablinks2.className.replace(" active", "");
-    tablinks3.className = tablinks3.className.replace(" active", "");
-    tablinks4.className = tablinks4.className.replace(" active", "");
-
-    tabcontent4.style.display = "block";
-    
-    
-    tablinks1.style.backgroundColor = "#ECECEC";
-    tablinks2.style.backgroundColor = "#ECECEC";
-    tablinks3.style.backgroundColor = "#ECECEC";
-    tablinks4.style.backgroundColor = "white";
-    
-    tablinks1.style.color = "#193465";
-    tablinks2.style.color = "#193465";
-    tablinks3.style.color = "#193465";
-    tablinks4.style.color = "black";
-})
-
-uploadImageDiv.addEventListener("click", async function() {
-    let myHeaders = new Headers();
-    let configObj = await mainFunction();
-    uploadImageEntry.style.display = 'none';
-    verificationLoaderImage.style.display = "block";
-    let backgroundUrl = backgroundInputURL.value;
-    configObj.backgroundUrl = backgroundUrl;
-    uploadImagesEntry(configObj);
-})
-uploadIconDiv.addEventListener("click", async function() {
-    let myHeaders = new Headers();
-    let configObj = await mainFunction();
-    uploadIconEntry.style.display = 'none';
-    verificationLoaderIcon.style.display = "block";
-    let logoURL = logoInputURL.value;
-    configObj.logoUrl = logoURL;
-    uploadLogoEntry(configObj);
-})
 async function uploadImagesEntry(configObj) {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
@@ -310,10 +42,11 @@ async function uploadImagesEntry(configObj) {
             errorUploadImageCatch("Could not upload the image");
         }
     })
-    .catch(error => errorUploadImageCatch(err));
+    .catch(err => errorUploadImageCatch(err));
 }
 
 function errorUploadImageCatch(err) {
+    errorUploadImageCatchTrack("Error Uploading Image");
     backgroundInputURL.style.borderLeft= "solid 1px red";
     backgroundInputURL.placeholder = "Image not supported by Okta API. Please try again!";
     backgroundInputURL.value = ""; 
@@ -322,6 +55,7 @@ function errorUploadImageCatch(err) {
     uploadImageEntry.style.display = "block";
 }
 async function uploadLogoEntry(configObj) {
+    uploadLogoEntryTrack("Uploaded Logo Entry Attempted");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
     myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
@@ -367,6 +101,7 @@ async function uploadLogoEntry(configObj) {
     });
 }
 function errorUploadLogoCatch(err) {
+    errorUploadLogoCatchTrack("Logo Upload Error");
     logoInputURL.style.borderLeft= "solid 1px red";
     logoInputURL.placeholder = "Image not supported by Okta API. Please try again!";
     logoInputURL.value = ""; 
@@ -376,6 +111,7 @@ function errorUploadLogoCatch(err) {
 
 }
 async function onlyUploadImages(configObj) {
+    onlyUploadImagesTrack("Only Images Uploaded");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
     myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
@@ -413,6 +149,7 @@ async function onlyUploadImages(configObj) {
     });
 }
 async function onlyUploadLogo(configObj) {
+    onlyUploadLogoTrack("Only Logo Uploaded");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${configObj.token}`);
     myHeaders.append("Cookie", "JSESSIONID=468D45D6CF3DC140D4260BA605FAD709");
@@ -524,172 +261,8 @@ async function uploadLogo(configObj) {
 
 
 
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
 
 
-
-edit.addEventListener("click", async function() {
-    tenantInput.disabled = false;
-    tokenInput.disabled= false;
-    verify.style.display="block";
-    edit.style.display="none";
-})
-
-verify.addEventListener("click", verifyCheck);
-
-async function verifyCheck() {
-    let myHeaders = new Headers();
-    let tenantEntry = tenantInput.value;
-    let tokenEntry  = tokenInput.value; 
-    myHeaders.append("Authorization", `SSWS ${tokenEntry}`);
-    myHeaders.append("Cookie", "JSESSIONID=857245CDDFCCB4DEAA4206ADE3C0AF83");
-    let url = tenantEntry + "/api/v1/brands";
-    var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-    };
-    tokeningSystem = await mainFunction();    
-    verification(url, requestOptions, tenantEntry, tokenEntry);
-}
-async function constructVerification(configObj) {
-    let myHeaders = new Headers();
-    let tenantEntry = configObj.tenant;
-    let tokenEntry  = configObj.token; 
-    myHeaders.append("Authorization", `SSWS ${tokenEntry}`);
-    myHeaders.append("Cookie", "JSESSIONID=857245CDDFCCB4DEAA4206ADE3C0AF83");
-    let url = tenantEntry + "/api/v1/brands";
-    var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-    };
-    verification(url, requestOptions, tenantEntry, tokenEntry);
-    
-}
-async function verification(url, requestOptions, tenantEntry, tokenEntry) {
-    let configObj = {
-        url,
-        requestOptions,
-        tenantEntry,
-        tokenEntry
-    }
-    configObj.initialVerification = true;
-    fetch(url, requestOptions)
-        .then(response => response.text())
-        .then(result => {   
-            var resultObj = JSON.parse(result);
-            let errorCheck = typeof(resultObj.errorSummary);
-            if(errorCheck == 'undefined') {
-                chrome.storage.sync.set({"tenant": tenantEntry}, function() {
-                    console.log("Tenant Saved!");
-                })
-                chrome.storage.sync.set({"token": tokenEntry}, function() {
-                    console.log("Token Saved!");
-                })
-                chrome.storage.sync.set({"verified": true}, function() {
-                    console.log("Verified Saved!");
-                })
-                chrome.storage.sync.set({"brandId": resultObj[0].id}, function() {
-                    console.log("Brand Id Saved!");
-                })
-                let themeObjConfig = {};
-                themeObjConfig.brandId = resultObj[0].id;
-                themeObjConfig.tenantEntry = tenantEntry;
-                themeObjConfig.tokenEntry = tokenEntry;
-                verifiedSuccessfully(configObj); 
-                return themeObjConfig; 
-            } else {
-                chrome.storage.sync.set({"verified": false}, function() {
-                    console.log("Verified Saved!");
-                })
-                verifiedUnsuccessfully();
-                throw resultObj;
-            
-            }
-        })
-        .then(themeObjConfig => {
-            getThemeId(themeObjConfig);
-        })
-        .catch(error => {
-            let errorVar = typeof error.errorSummary; 
-            if(errorVar == 'undefined') {
-                alert("Verification Failed, please make sure tenant is in the format https://{domain}.okta.com")
-            } else {
-                alert(error.errorSummary);
-            }
-            chrome.storage.sync.set({"verified": false}, function() {
-                console.log("Verified Saved!");
-            })
-            verifiedUnsuccessfully();
-            verify.innerText = "Retry Verification";
-            verifyForm.style.boxShadow = "0px 0px 35px 0px rgba(255,127,127,0.84)";
-
-    });
-}
-async function verifiedSuccessfully(configObj) {
-    let brandVerified = typeof(configObj.brandId);
-    let themeVerified = typeof(configObj.themeId);
-    
-    if(brandVerified != "undefined" && themeVerified != "undefined") {
-
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", `SSWS ${configObj.token}`);
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Cookie", "JSESSIONID=932FCA694E42A78DBD0C39EE3A4F9191");
-        
-        var raw = JSON.stringify({
-          "primaryColorHex": "#ebebed",
-          "secondaryColorHex": "#FFFFFF",
-          "signInPageTouchPointVariant": "BACKGROUND_IMAGE",
-          "endUserDashboardTouchPointVariant": "WHITE_LOGO_BACKGROUND",
-          "errorPageTouchPointVariant": "OKTA_DEFAULT",
-          "emailTemplateTouchPointVariant": "OKTA_DEFAULT"
-        });
-
-        var requestOptions = {
-          method: 'PUT',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
-        };
-        
-        fetch(`${configObj.tenant}/api/v1/brands/${configObj.brandId}/themes/${configObj.themeId}`, requestOptions)
-          .then(response => response.text())
-          .then(result => console.log("Set appropriate settings"))
-          .catch(error => console.log('error', error));
-    }
-    verifyForm.style.boxShadow =  '0px 0px 14px 0px rgba(144,238,144,0.68)';
-    verify.style.display = "none";
-    edit.style.display = "block";
-    tablinks1.style.display = 'block';
-    tablinks2.style.display= 'block';
-    verifyForm.style.display = 'block';
-    tenantInput.disabled = true;
-    tokenInput.disabled= true;
-    return true;
-}
-async function verifiedUnsuccessfully() {
-    verifyForm.style.boxShadow = "0px 0px 35px 0px rgba(255,127,127,0.84)";
-    verify.style.display = "block";
-    edit.style.display = "none";
-    tablinks1.style.display = 'none';
-    tablinks2.style.display= 'none';
-    verifyForm.style.display = 'block';
-    tabcontent1.style.display='none';
-    tabcontent2.style.display='none';
-    tabcontent3.style.display='none';
-    tabcontent4.style.display='block';
-    tenantInput.disabled = false;
-    tokenInput.disabled= false;
-    return true;
-}
 function getThemeId(themeObjConfig) {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `SSWS ${themeObjConfig.tokenEntry}`);
@@ -711,63 +284,7 @@ function getThemeId(themeObjConfig) {
       .catch(error => console.log('error', error));
 }
 
-defaultImageListeners();
 
-async function defaultImageListeners() {
-    let defaultImages = document.querySelectorAll(".image");
-    for(let i = 0; i < defaultImages.length; i++) {
-        defaultImages[i].addEventListener("click", async function() {
-            let config = await mainFunction();
-            let currentImageBox = defaultImages[i];
-            let currentImageBoxChildren = defaultImages[i].children;
-            let currentImage = currentImageBoxChildren[0];
-            let currentLoader = currentImageBoxChildren[1];
-            console.log(currentImage.id);
-            if(currentImage.src.includes("finance")) {
-                config.logoUrl = "./imgs/logo/finance-logo.jpeg";
-            } 
-            if(currentImage.src.includes("healthcare")) {
-                config.logoUrl = "./imgs/logo/health-logo.png";
-            } 
-            if(currentImage.src.includes("informationaltechnology")) {
-                config.logoUrl = "./imgs/logo/it-logo.png";
-            } 
-            if(currentImage.src.includes("travel")) {
-                config.logoUrl = "./imgs/logo/travel-logo.png";
-            } 
-            if(currentImage.src.includes("okta")) {
-                config.logoUrl = "./imgs/logo/okta-logo.png";
-            } 
-            config.backgroundUrl = currentImage.src;
-            config.loader = currentLoader;
-            config.image = currentImage;
-            currentImage.style.display= "none";
-            currentImageBox.style.backgroundColor = "white";
-            currentLoader.style.display = "block";
-            uploadImages(config);
-        });
-    }
-}
-
-
-oinSearch.addEventListener("keyup", async function(e) {
-   
-   let search = e.target.value;
-   if(search !== '') {
-    searchPlaceHolder.style.display="none";
-    searchResults.style.display = "block";
-   } else {
-    searchPlaceHolder.style.display="block";
-    searchResults.style.display = "none";
-   }
-    fetch(`https://www.okta.com/oktaapi/integration/search?search=${search}`)
-    .then(response => response.text())
-    .then(result => {
-        console.log("Result: ", result);
-        let jsonResult = JSON.parse(result);
-        displayResult(jsonResult.results);
-    })
-})
 
 backgroundInputSearch.addEventListener("keyup", debounce(saveInput, 400 ));
 function debounce( callback, delay ) {
@@ -780,36 +297,84 @@ function debounce( callback, delay ) {
 async function saveInput(e){
     verificationLoadersOn();
     let search = backgroundInputSearch.value;
-    search += " wallpaper";
-    fetch(`https://serpapi.com/search.json?q=${search}&tbm=isch&ijn=0&tbs=itp:photos,isz:l&api_key=f5afc2bb0a4ba248ddf7494f8734116c2a983df10d3da2086c80fd858be405b8`)
-        .then(response => response.text())
-        .then(result => {
-            let resultJson = JSON.parse(result);
-            let imageResults = resultJson.images_results;
-            sortImages(imageResults);
-        })
-}
-async function sortImages(results) {
-    let imageCount = 0;
-    for(let i = 0; imageCount < 10; i++) {
-    const imageToFile= async()=> {
-        const image = results[i].original;
-        const response = await fetch(image).catch(err => console.log(err));
-        let file;
-        if(typeof response != 'undefined') {
-            const blob = await response.blob();
-            file = await new File([blob], 'image.jpg', {type: blob.type});
-        } else {
-            const blob = new Blob();
-            file = await new File([blob], 'image.jpg', {type: "block"});
+    saveInputTrack(search); 
+    // console.log(" SEARCH : ", search);
+  
+    let finalSearch = search;
+    fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyACi8ISaIJonkXJvQfH_HVoqZgRsrMyc3w&cx=b2dd7f92c3e6e7185&q=${finalSearch}&searchType=image`)
+    .then(response => response.text())
+    .then(result => {
+        // console.log("RESULT: ", JSON.parse(result));
+        let results = JSON.parse(result).items;
+        let imageArray = [];
+        // console.log(results);
+        for(let i = 0 ; i < results.length; i++) {
+            imageArray.push(results[i].link);
         }
-        return file;
-      }
-      var file = await imageToFile();
-      if(file.type == 'image/jpeg' || file.type == 'image/png') {
-        imageCount++;
-        displayImages(results[i].original, imageCount);
-      }
+        sortImages(imageArray, search );
+    })
+    .catch(err => console.log("ERROR: ", err));
+
+}
+
+async function customSearchEngine(finalSearch, start) {
+    // console.log("Getting Next Batch");
+    let imageArray = await fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyACi8ISaIJonkXJvQfH_HVoqZgRsrMyc3w&cx=b2dd7f92c3e6e7185&start=${start}&imgSize=large&q=${finalSearch}background&searchType=image`)
+    .then(response => response.text())
+    .then(result => {
+        // console.log("RESULT: ", JSON.parse(result));
+        let results = JSON.parse(result).items;
+        let imageArray = [];
+        // console.log(results);
+        for(let i = 0 ; i < results.length; i++) {
+            imageArray.push(results[i].link);
+        }
+        // sortImages(imageArray, search );
+        return imageArray;
+    })
+    .catch(err => console.log("ERROR: ", err));
+    return imageArray;
+}
+async function sortImages(results, finalSearch) {
+    // console.log("OH SNAP RESuLTS: ", results);
+    let imageCount = 0;
+    let cycle = 0; 
+    let currentIndex= 0;
+    for(let i = 0; imageCount < 10; i++) {
+        // console.log("CYCLE: ", cycle);
+        // console.log("currentIndex: ", currentIndex);
+        // console.log("imageCount: ", imageCount);
+
+        let image = results[currentIndex];
+        if(typeof image == 'undefined') {
+            // console.log("REACHED FINAL BATCH");
+            cycle++;
+            let start = (cycle*10) + 1; 
+            results = await customSearchEngine(finalSearch, start);
+            // console.log('results from everything: ', results);
+            currentIndex = 0; 
+        }
+        const imageToFile= async()=> {  
+            // console.log("image: ", image);
+            const response = await fetch(image).catch(err => console.log("error: ", err));
+            let file;
+            if(typeof response != 'undefined') {
+                const blob = await response.blob();
+                file = await new File([blob], 'image.jpg', {type: blob.type});
+            } else {
+                const blob = new Blob();
+                file = await new File([blob], 'image.jpg', {type: "block"});
+            }
+            // console.log("FILE: ", file);
+            return file;
+        }
+        var file = await imageToFile();
+        //   console.log("FILESSSS: ", file);
+        if(file.type == 'image/jpeg' || file.type == 'image/png') {
+            imageCount++;
+            displayImages(results[currentIndex], imageCount);
+        }
+        currentIndex++;
     }
 }
 function displayImages(results,count) {
@@ -828,7 +393,6 @@ function displayImages(results,count) {
     element.innerHTML = `<img id=${imageResultString} src=${results} /> <div id=${verficationLoaderString}></div>`;
 }
 function displayResult(results) {
-    console.log("RESULTS: ", results);
     tableBody.innerHTML = '';
     for(result of results) {
         let access = result.access;
@@ -982,7 +546,6 @@ function logo_delegate(criteria, listener) {
     } while ((el = el.parentNode));
   };
 }
-
 // Custom filter to check for required DOM elements
 function logo_toggleFilter(elem) {
   return (elem instanceof HTMLElement) && elem.matches(".logo_toggle");
@@ -990,102 +553,56 @@ function logo_toggleFilter(elem) {
   // For < IE9
   // return elem.classList && elem.classList.contains('btn');
 }
-  function logo_toggleHandler(e) {
-    var $logo_newSeat;
-    const $el = document.querySelector('.logo_is-ref');
-    const $currSliderControl = e.delegateTarget;
-    // Info: e.target is what triggers the event dispatcher to trigger and e.currentTarget is what you assigned your listener to.
-  
-    $el.classList.remove('logo_is-ref');
-    if ($currSliderControl.getAttribute('data-toggle') === 'next') {
-      $logo_newSeat = next($el);
-      $logo_carousel.classList.remove('logo_is-reversing');
+function logo_toggleHandler(e) {
+var $logo_newSeat;
+const $el = document.querySelector('.logo_is-ref');
+const $currSliderControl = e.delegateTarget;
+// Info: e.target is what triggers the event dispatcher to trigger and e.currentTarget is what you assigned your listener to.
+
+$el.classList.remove('logo_is-ref');
+if ($currSliderControl.getAttribute('data-toggle') === 'next') {
+    $logo_newSeat = next($el);
+    $logo_carousel.classList.remove('logo_is-reversing');
+} else {
+    $logo_newSeat = prev($el);
+    $logo_carousel.classList.add('logo_is-reversing');
+}
+
+$logo_newSeat.classList.add('logo_is-ref');
+$logo_newSeat.style.order = 1;
+for (var i = 2; i <= $logo_seats.length; i++) {
+    $logo_newSeat = next($logo_newSeat);
+    $logo_newSeat.style.order = i;
+}
+
+$logo_carousel.classList.remove('logo_is-set');
+return setTimeout(function() {
+    return $logo_carousel.classList.add('logo_is-set');
+}, 50);
+
+function next($el) {
+    if ($el.nextElementSibling) {
+    return $el.nextElementSibling;
     } else {
-      $logo_newSeat = prev($el);
-      $logo_carousel.classList.add('logo_is-reversing');
+    return $logo_carousel.firstElementChild;
     }
-  
-    $logo_newSeat.classList.add('logo_is-ref');
-    $logo_newSeat.style.order = 1;
-    for (var i = 2; i <= $logo_seats.length; i++) {
-      $logo_newSeat = next($logo_newSeat);
-      $logo_newSeat.style.order = i;
-    }
-  
-    $logo_carousel.classList.remove('logo_is-set');
-    return setTimeout(function() {
-      return $logo_carousel.classList.add('logo_is-set');
-    }, 50);
-  
-    function next($el) {
-      if ($el.nextElementSibling) {
-        return $el.nextElementSibling;
-      } else {
-        return $logo_carousel.firstElementChild;
-      }
-    }
-  
-    function prev($el) {
-      if ($el.previousElementSibling) {
-        return $el.previousElementSibling;
-      } else {
-        return $logo_carousel.lastElementChild;
-      }
-    }
-  }
+}
 
-  // Logo Carousel Done
-
-
+function prev($el) {
+    if ($el.previousElementSibling) {
+    return $el.previousElementSibling;
+    } else {
+    return $logo_carousel.lastElementChild;
+    }
+}
+}
+  // Logo Carousel Don
 // Tab Content 2: Image Search Carousel 
-imageResultsListener();
-async function imageResultsListener() {
-    let resultsImageOptions = document.querySelectorAll(".resultsImage");
-    for(let i = 0; i < resultsImageOptions.length; i++) {
-        resultsImageOptions[i].addEventListener("click", async function() {
-            let config = await mainFunction();
-            let currentResultsImageBox = resultsImageOptions[i];
-            let currentResultsImageBoxChildren = currentResultsImageBox.children;
-            let currentResultsImage = currentResultsImageBoxChildren[0];
-            let currentResultsLoader = currentResultsImageBoxChildren[1];
-            console.log("currentResultsImageBox: ", currentResultsImageBox);
-            console.log("currentResultsImage : ", currentResultsImage.src);
-            console.log("currentResultsLoader : ", currentResultsLoader);
-            config.backgroundUrl = currentResultsImage.src;
-            config.loader = currentResultsLoader;
-            config.imageDiv = currentResultsImage;
-            config.image = currentResultsImage;
-
-            currentResultsImage.style.display = "none";
-            currentResultsLoader.style.display = "block";
-
-            currentResultsImageBox.style.backgroundColor = "white";
-            currentResultsLoader.style.backgroundColor = "white";
-            console.log("config: ", config);
-            onlyUploadImages(config);
-        })
-    }
-}
-logoResultsListeners(); 
-async function logoResultsListeners() {
-    let config = await mainFunction();
-    let logoResultsImage = document.querySelectorAll(".logoResultsImage");
-    for(let i = 0 ; i < logoResultsImage.length; i++) {
-        logoResultsImage[i].addEventListener("click", function() {
-            logoResultsImage[i].children[0].style.display = "none";
-            config.logoImageDiv = logoResultsImage[i].children[0];
-            config.logoUrl = logoResultsImage[i].children[0].src;
-            config.loader= logoResultsImage[i].children[1];
-            config.loader.style.display = "block";
-            config.loader.style.display = "white";
-            onlyUploadLogo(config);
-        })
-    }
-}
-
-
 
 // END: Tab Content 2: Image Search Carousel 
+
+
+
 logoInputSearch.addEventListener("keyup", debounce(saveInputLogo, 400 ));
 function debounce( callback, delay ) {
     let timeout;
@@ -1162,6 +679,7 @@ function saveInputLogo(e){
     verificationLoadersOnLogo();
     let search = logoInputSearch.value;
     search += " logo";
+    saveLogoTrack(search);
     fetch(`https://serpapi.com/search.json?q=${search}&tbm=isch&ijn=0&tbs=itp:photos,isz:l&api_key=f5afc2bb0a4ba248ddf7494f8734116c2a983df10d3da2086c80fd858be405b8`)
         .then(response => response.text())
         .then(result => {
@@ -1210,4 +728,3 @@ function displayLogoImages(results,count) {
     let imageResultString = `imageResult` + resultCount; 
     element.innerHTML = `<img id=${imageResultString} src=${results} /> <div id=${verficationLoaderString}></div>`;
 }
-
