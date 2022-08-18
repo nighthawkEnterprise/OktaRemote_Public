@@ -1,5 +1,5 @@
 
 setInterval(() => {
-   console.log("background js");
+   console.log("hello");
 }, 20000);
       
